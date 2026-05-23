@@ -1,0 +1,2432 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><rect width=%27100%27 height=%27100%27 rx=%2720%27 fill=%27%232D4A35%27/><text y=%27.9em%27 font-size=%2782%27>🚛</text></svg>"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Champlain Junk Removal — Vermont's Trusted Hauling Service</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      :root {
+        --color-pine-dark: #1e3326;
+        --color-pine: #2d4a35;
+        --color-pine-mid: #3d6347;
+        --color-sage: #6b8f5e;
+        --color-sage-light: #8faf7e;
+        --color-lake: #7a9faf;
+        --color-lake-light: #a8c4cf;
+        --color-mist: #b8cdb5;
+        --color-snow: #e8ede6;
+        --color-cream: #f4f2ec;
+        --color-warm-white: #fafaf7;
+        --color-charcoal: #1a1f1b;
+        --color-stone: #5c6b5f;
+        --font-display: "Playfair Display", serif;
+        --font-body: "DM Sans", sans-serif;
+        --space-xs: 0.5rem;
+        --space-sm: 0.75rem;
+        --space-md: 1rem;
+        --space-lg: 1.5rem;
+        --space-xl: 2rem;
+        --space-2xl: 3rem;
+        --space-3xl: 5rem;
+        --space-4xl: 8rem;
+        --shadow-card:
+          0 1px 3px rgba(30, 51, 38, 0.06), 0 4px 16px rgba(30, 51, 38, 0.08);
+        --shadow-float:
+          0 8px 32px rgba(30, 51, 38, 0.12), 0 2px 8px rgba(30, 51, 38, 0.06);
+        --shadow-btn: 0 2px 8px rgba(30, 51, 38, 0.25);
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: var(--font-body);
+        color: var(--color-charcoal);
+        background: var(--color-warm-white);
+        line-height: 1.7;
+      }
+      h1,
+      h2,
+      h3,
+      h4 {
+        font-family: var(--font-display);
+      }
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+      }
+      .section {
+        padding: var(--space-3xl) 0;
+      }
+
+      .eyebrow {
+        font-family: var(--font-body);
+        font-size: 0.7rem;
+        font-weight: 600;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: var(--color-sage);
+        display: block;
+        margin-bottom: 0.75rem;
+      }
+      .eyebrow-light {
+        color: var(--color-sage-light);
+      }
+
+      /* Nav */
+      .main-nav {
+        background: var(--color-pine-dark);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        box-shadow: 0 2px 24px rgba(0, 0, 0, 0.2);
+      }
+      .nav-inner {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+        height: 72px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .nav-logo img {
+        height: 46px;
+        filter: brightness(0) invert(1);
+        display: block;
+      }
+      .nav-right {
+        display: flex;
+        align-items: center;
+        gap: 2.5rem;
+      }
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+        list-style: none;
+      }
+      .nav-links a {
+        font-family: var(--font-body);
+        font-size: 0.9rem;
+        font-weight: 500;
+        color: var(--color-mist);
+        text-decoration: none;
+        transition: color 0.2s ease;
+        letter-spacing: 0.01em;
+      }
+      .nav-links a:hover,
+      .nav-links a.active {
+        color: var(--color-snow);
+      }
+
+      /* Buttons */
+      .btn-primary {
+        background: var(--color-sage);
+        color: var(--color-snow);
+        font-family: var(--font-body);
+        font-size: 0.875rem;
+        font-weight: 500;
+        letter-spacing: 0.04em;
+        padding: 13px 28px;
+        border-radius: 6px;
+        border: none;
+        cursor: pointer;
+        display: inline-block;
+        text-decoration: none;
+        transition:
+          background 0.2s ease,
+          transform 0.15s ease;
+        box-shadow: var(--shadow-btn);
+      }
+      .btn-primary:hover {
+        background: var(--color-pine-mid);
+      }
+      .btn-primary:active {
+        transform: scale(0.98);
+      }
+      .btn-primary:focus-visible {
+        box-shadow: 0 0 0 3px rgba(107, 143, 94, 0.5);
+        outline: none;
+      }
+
+      .btn-outline-light {
+        background: transparent;
+        color: var(--color-snow);
+        border: 1.5px solid rgba(232, 237, 230, 0.6);
+        font-family: var(--font-body);
+        font-size: 0.875rem;
+        font-weight: 500;
+        letter-spacing: 0.04em;
+        padding: 12px 28px;
+        border-radius: 6px;
+        cursor: pointer;
+        display: inline-block;
+        text-decoration: none;
+        transition:
+          background 0.2s ease,
+          border-color 0.2s ease;
+      }
+      .btn-outline-light:hover {
+        background: rgba(232, 237, 230, 0.12);
+        border-color: var(--color-snow);
+      }
+      .btn-outline-light:focus-visible {
+        box-shadow: 0 0 0 3px rgba(107, 143, 94, 0.5);
+        outline: none;
+      }
+
+      /* Service cards */
+      .service-card {
+        background: white;
+        border-radius: 14px;
+        padding: var(--space-lg) var(--space-xl);
+        box-shadow: var(--shadow-card);
+        border: 1px solid rgba(168, 196, 207, 0.2);
+        border-top: 3px solid transparent;
+        transition:
+          box-shadow 0.25s ease,
+          transform 0.25s ease,
+          border-top-color 0.25s ease;
+        display: flex;
+        flex-direction: column;
+      }
+      .service-card:hover {
+        box-shadow: var(--shadow-float);
+        transform: translateY(-4px);
+        border-top-color: var(--color-sage);
+      }
+      .service-card:hover .card-arrow {
+        gap: 8px;
+      }
+      .card-arrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        transition: gap 0.2s ease;
+      }
+
+      .icon-box {
+        width: 52px;
+        height: 52px;
+        background: linear-gradient(
+          135deg,
+          var(--color-snow) 0%,
+          rgba(107, 143, 94, 0.12) 100%
+        );
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: var(--space-md);
+        flex-shrink: 0;
+      }
+
+      /* Step circles */
+      .step-circle {
+        width: 68px;
+        height: 68px;
+        background: var(--color-pine-dark);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto var(--space-lg);
+        box-shadow:
+          0 4px 24px rgba(30, 51, 38, 0.3),
+          0 1px 4px rgba(30, 51, 38, 0.15);
+        flex-shrink: 0;
+        position: relative;
+        z-index: 1;
+      }
+      .step-ghost-num {
+        position: absolute;
+        top: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-family: var(--font-display);
+        font-size: 5rem;
+        font-weight: 700;
+        color: rgba(107, 143, 94, 0.08);
+        line-height: 1;
+        pointer-events: none;
+        user-select: none;
+      }
+
+      /* Review cards */
+      .review-card {
+        background: white;
+        border-radius: 14px;
+        padding: 1.75rem;
+        box-shadow: var(--shadow-card);
+        border: 1px solid rgba(168, 196, 207, 0.2);
+        transition:
+          box-shadow 0.25s ease,
+          transform 0.25s ease;
+      }
+      .review-card:hover {
+        box-shadow: var(--shadow-float);
+        transform: translateY(-3px);
+      }
+      .star-row {
+        color: #d4a017;
+        font-size: 15px;
+        letter-spacing: 1px;
+        margin-bottom: 0.75rem;
+      }
+
+      /* Stats bar */
+      .stat-item {
+        text-align: center;
+        padding: 1.5rem 1rem;
+        position: relative;
+      }
+      .stat-item + .stat-item::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 20%;
+        height: 60%;
+        width: 1px;
+        background: rgba(107, 143, 94, 0.25);
+      }
+      .stat-number {
+        font-family: var(--font-display);
+        font-size: 2.8rem;
+        font-weight: 700;
+        color: var(--color-pine-dark);
+        line-height: 1;
+        margin-bottom: 0.25rem;
+      }
+      .stat-label {
+        font-size: 0.82rem;
+        font-weight: 600;
+        color: var(--color-stone);
+        letter-spacing: 0.04em;
+      }
+      .stat-sub {
+        font-size: 0.75rem;
+        color: var(--color-stone);
+        opacity: 0.75;
+        margin-top: 2px;
+      }
+
+      /* Footer */
+      .main-footer {
+        background: var(--color-pine-dark);
+        padding: var(--space-3xl) 0 var(--space-xl);
+      }
+      .footer-link {
+        color: var(--color-mist);
+        text-decoration: none;
+        font-size: 0.85rem;
+        transition: color 0.2s ease;
+      }
+      .footer-link:hover {
+        color: var(--color-snow);
+      }
+
+      /* Scroll reveal */
+      [data-reveal] {
+        opacity: 0;
+        transform: translateY(28px);
+        transition:
+          opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+          transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+      [data-reveal].in-view {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      [data-reveal][data-delay="1"] {
+        transition-delay: 0.08s;
+      }
+      [data-reveal][data-delay="2"] {
+        transition-delay: 0.16s;
+      }
+      [data-reveal][data-delay="3"] {
+        transition-delay: 0.24s;
+      }
+      [data-reveal][data-delay="4"] {
+        transition-delay: 0.32s;
+      }
+      [data-reveal][data-delay="5"] {
+        transition-delay: 0.4s;
+      }
+
+      /* Scroll indicator */
+      .scroll-indicator {
+        position: absolute;
+        bottom: 2.5rem;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+        opacity: 0.5;
+        animation: scrollBounce 2s ease-in-out infinite;
+      }
+      @keyframes scrollBounce {
+        0%,
+        100% {
+          transform: translateX(-50%) translateY(0);
+        }
+        50% {
+          transform: translateX(-50%) translateY(6px);
+        }
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .nav-right {
+          gap: 1.25rem;
+        }
+        .nav-links {
+          display: none;
+        }
+        .services-grid {
+          grid-template-columns: 1fr !important;
+        }
+        .steps-grid {
+          grid-template-columns: 1fr !important;
+        }
+        .eco-grid {
+          grid-template-columns: 1fr !important;
+        }
+        .footer-grid {
+          grid-template-columns: 1fr !important;
+        }
+        .stats-grid {
+          grid-template-columns: repeat(2, 1fr) !important;
+        }
+        .reviews-grid {
+          grid-template-columns: 1fr !important;
+        }
+        .stat-item + .stat-item::before {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- NAV -->
+    <nav class="main-nav">
+      <div class="nav-inner">
+        <a
+          href="index.html"
+          class="nav-logo"
+          style="
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.55rem;
+          "
+        >
+          <span
+            style="
+              width: 36px;
+              height: 36px;
+              border-radius: 9px;
+              background: var(--color-sage);
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              flex-shrink: 0;
+              box-shadow: 0 2px 8px rgba(107, 143, 94, 0.35);
+            "
+          >
+            <i class="ti ti-truck" style="color: white; font-size: 17px"></i>
+          </span>
+          <span style="line-height: 1.15">
+            <span
+              style="
+                display: block;
+                font-family: var(--font-display);
+                font-size: 1rem;
+                font-weight: 700;
+                color: var(--color-snow);
+                letter-spacing: -0.01em;
+              "
+              >Champlain</span
+            >
+            <span
+              style="
+                display: block;
+                font-family: var(--font-body);
+                font-size: 0.6rem;
+                font-weight: 600;
+                color: var(--color-sage-light);
+                letter-spacing: 0.1em;
+                text-transform: uppercase;
+              "
+              >Junk Removal</span
+            >
+          </span>
+        </a>
+        <div class="nav-right">
+          <ul class="nav-links">
+            <li><a href="index.html" class="active">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+          <a
+            href="contact.html"
+            class="btn-primary"
+            style="padding: 10px 22px; font-size: 0.82rem"
+            >Get a Free Quote</a
+          >
+        </div>
+      </div>
+    </nav>
+
+    <!-- HERO -->
+    <section
+      style="
+        position: relative;
+        min-height: 90vh;
+        display: flex;
+        align-items: center;
+        background: var(--color-pine-dark);
+        overflow: hidden;
+      "
+    >
+      <!-- Real photo background -->
+      <div
+        style="
+          position: absolute;
+          inset: 0;
+          background-image: url(&quot;https://images.unsplash.com/photo-1482685945432-29a7abf2f466?auto=format&fit=crop&w=1600&q=80&quot;);
+          background-size: cover;
+          background-position: center 30%;
+          opacity: 0.45;
+        "
+      ></div>
+      <!-- Grain texture -->
+      <svg
+        style="
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          opacity: 0.04;
+        "
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <filter id="grain">
+          <feTurbulence
+            type="fractalNoise"
+            baseFrequency="0.65"
+            numOctaves="3"
+            stitchTiles="stitch"
+          />
+          <feColorMatrix type="saturate" values="0" />
+        </filter>
+        <rect width="100%" height="100%" filter="url(#grain)" />
+      </svg>
+      <!-- Gradient overlay -->
+      <div
+        style="
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(
+            120deg,
+            rgba(30, 51, 38, 0.92) 0%,
+            rgba(30, 51, 38, 0.72) 55%,
+            rgba(45, 74, 53, 0.45) 100%
+          );
+        "
+      ></div>
+      <!-- Radial accent -->
+      <div
+        style="
+          position: absolute;
+          left: -200px;
+          top: -200px;
+          width: 700px;
+          height: 700px;
+          border-radius: 50%;
+          background: radial-gradient(
+            circle,
+            rgba(107, 143, 94, 0.12) 0%,
+            transparent 70%
+          );
+        "
+      ></div>
+      <div
+        style="
+          position: absolute;
+          right: -100px;
+          bottom: -100px;
+          width: 500px;
+          height: 500px;
+          border-radius: 50%;
+          background: radial-gradient(
+            circle,
+            rgba(122, 159, 175, 0.08) 0%,
+            transparent 70%
+          );
+        "
+      ></div>
+
+      <div
+        class="container"
+        style="
+          position: relative;
+          z-index: 2;
+          padding-top: 7rem;
+          padding-bottom: 9rem;
+        "
+      >
+        <div style="max-width: 660px">
+          <span class="eyebrow eyebrow-light" style="margin-bottom: 1rem"
+            >Vermont's Trusted Hauling Team · Est. 2026</span
+          >
+          <h1
+            style="
+              font-family: var(--font-display);
+              font-size: clamp(2.8rem, 5vw, 4.4rem);
+              font-weight: 700;
+              color: var(--color-snow);
+              letter-spacing: -0.02em;
+              line-height: 1.12;
+              margin-bottom: var(--space-lg);
+            "
+          >
+            Honest Pricing.<br />Reliable Hauling.<br />
+            <em style="color: var(--color-sage-light); font-style: italic"
+              >Vermont Proud.</em
+            >
+          </h1>
+          <p
+            style="
+              font-size: 1.1rem;
+              color: var(--color-mist);
+              line-height: 1.78;
+              margin-bottom: var(--space-xl);
+              max-width: 520px;
+            "
+          >
+            We show up on time, give you an upfront price before we touch a
+            thing, and haul it all away. No hidden fees. No hassle. Proudly
+            serving Addison County and surrounding Vermont communities.
+          </p>
+          <div
+            style="
+              display: flex;
+              gap: var(--space-md);
+              flex-wrap: wrap;
+              align-items: center;
+              margin-bottom: var(--space-xl);
+            "
+          >
+            <a
+              href="contact.html"
+              class="btn-primary"
+              style="
+                font-size: 0.9rem;
+                padding: 15px 34px;
+                letter-spacing: 0.03em;
+              "
+              >Get Your Free Quote</a
+            >
+            <a
+              href="#services"
+              class="btn-outline-light"
+              style="font-size: 0.9rem; padding: 14px 30px"
+              >See Our Services</a
+            >
+          </div>
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              gap: 1.75rem;
+              flex-wrap: wrap;
+            "
+          >
+            <div style="display: flex; align-items: center; gap: 0.5rem">
+              <i
+                class="ti ti-shield-check"
+                style="color: var(--color-sage-light); font-size: 15px"
+              ></i>
+              <span style="color: var(--color-mist); font-size: 0.82rem"
+                >Licensed & Insured</span
+              >
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.5rem">
+              <i
+                class="ti ti-currency-dollar"
+                style="color: var(--color-sage-light); font-size: 15px"
+              ></i>
+              <span style="color: var(--color-mist); font-size: 0.82rem"
+                >Upfront Pricing</span
+              >
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.5rem">
+              <i
+                class="ti ti-recycle"
+                style="color: var(--color-sage-light); font-size: 15px"
+              ></i>
+              <span style="color: var(--color-mist); font-size: 0.82rem"
+                >Eco-Responsible</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scroll indicator -->
+      <div class="scroll-indicator">
+        <span
+          style="
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--color-mist);
+          "
+          >Scroll</span
+        >
+        <i
+          class="ti ti-chevron-down"
+          style="color: var(--color-mist); font-size: 16px"
+        ></i>
+      </div>
+    </section>
+
+    <!-- STATS BAR -->
+    <section
+      style="
+        background: var(--color-cream);
+        border-bottom: 1px solid rgba(168, 196, 207, 0.35);
+      "
+    >
+      <div class="container">
+        <div
+          class="stats-grid"
+          style="display: grid; grid-template-columns: repeat(4, 1fr)"
+        >
+          <div class="stat-item" data-reveal>
+            <div class="stat-number">100%</div>
+            <div class="stat-label">Upfront Pricing</div>
+            <div class="stat-sub">No surprise fees — ever</div>
+          </div>
+          <div class="stat-item" data-reveal data-delay="1">
+            <div class="stat-number">
+              30<span style="font-size: 1.2rem">mi</span>
+            </div>
+            <div class="stat-label">Core Service Radius</div>
+            <div class="stat-sub">Addison County &amp; surrounding</div>
+          </div>
+          <div class="stat-item" data-reveal data-delay="2">
+            <div class="stat-number">$0</div>
+            <div class="stat-label">Hidden Fees</div>
+            <div class="stat-sub">Price locked before we start</div>
+          </div>
+          <div class="stat-item" data-reveal data-delay="3">
+            <div class="stat-number">5★</div>
+            <div class="stat-label">Service Rating</div>
+            <div class="stat-sub">Trusted by Vermont neighbors</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section
+      id="services"
+      class="section"
+      style="background: var(--color-warm-white)"
+    >
+      <div class="container">
+        <div
+          style="text-align: center; margin-bottom: var(--space-2xl)"
+          data-reveal
+        >
+          <span class="eyebrow">What We Haul</span>
+          <h2
+            style="
+              font-size: 2.25rem;
+              font-weight: 600;
+              color: var(--color-charcoal);
+              margin-bottom: 0.75rem;
+            "
+          >
+            Our Services
+          </h2>
+          <p
+            style="
+              color: var(--color-stone);
+              max-width: 500px;
+              margin: 0 auto;
+              font-size: 0.97rem;
+            "
+          >
+            From a single piece of furniture to a full estate cleanout — we
+            handle it all across Addison County and surrounding communities.
+          </p>
+        </div>
+
+        <!-- 6-column grid to center last 2 of 5 -->
+        <div
+          class="services-grid"
+          style="
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 1.5rem;
+          "
+        >
+          <div
+            class="service-card"
+            style="grid-column: span 2"
+            data-reveal
+            data-delay="1"
+          >
+            <div class="icon-box">
+              <i
+                class="ti ti-home"
+                style="font-size: 26px; color: var(--color-sage)"
+              ></i>
+            </div>
+            <h3
+              style="
+                font-size: 1.2rem;
+                font-weight: 500;
+                margin-bottom: 0.5rem;
+                color: var(--color-charcoal);
+              "
+            >
+              Residential Junk Removal
+            </h3>
+            <p
+              style="
+                color: var(--color-stone);
+                font-size: 0.88rem;
+                flex: 1;
+                margin-bottom: 1rem;
+              "
+            >
+              Basement, garage, or spare room overflowing? We clear it out fast
+              — you don't have to lift a thing.
+            </p>
+            <a
+              href="contact.html"
+              style="
+                color: var(--color-lake);
+                font-size: 0.85rem;
+                font-weight: 500;
+                text-decoration: none;
+              "
+              class="card-arrow"
+              >Get a Quote
+              <i class="ti ti-arrow-right" style="font-size: 14px"></i
+            ></a>
+          </div>
+
+          <div
+            class="service-card"
+            style="grid-column: span 2"
+            data-reveal
+            data-delay="2"
+          >
+            <div class="icon-box">
+              <i
+                class="ti ti-plug"
+                style="font-size: 26px; color: var(--color-sage)"
+              ></i>
+            </div>
+            <h3
+              style="
+                font-size: 1.2rem;
+                font-weight: 500;
+                margin-bottom: 0.5rem;
+                color: var(--color-charcoal);
+              "
+            >
+              Appliance Removal
+            </h3>
+            <p
+              style="
+                color: var(--color-stone);
+                font-size: 0.88rem;
+                flex: 1;
+                margin-bottom: 1rem;
+              "
+            >
+              Old fridge, washer, dryer, or freezer? We disconnect, haul, and
+              dispose of it responsibly.
+            </p>
+            <a
+              href="contact.html"
+              style="
+                color: var(--color-lake);
+                font-size: 0.85rem;
+                font-weight: 500;
+                text-decoration: none;
+              "
+              class="card-arrow"
+              >Get a Quote
+              <i class="ti ti-arrow-right" style="font-size: 14px"></i
+            ></a>
+          </div>
+
+          <div
+            class="service-card"
+            style="grid-column: span 2"
+            data-reveal
+            data-delay="3"
+          >
+            <div class="icon-box">
+              <i
+                class="ti ti-armchair"
+                style="font-size: 26px; color: var(--color-sage)"
+              ></i>
+            </div>
+            <h3
+              style="
+                font-size: 1.2rem;
+                font-weight: 500;
+                margin-bottom: 0.5rem;
+                color: var(--color-charcoal);
+              "
+            >
+              Furniture Removal
+            </h3>
+            <p
+              style="
+                color: var(--color-stone);
+                font-size: 0.88rem;
+                flex: 1;
+                margin-bottom: 1rem;
+              "
+            >
+              Sofas, mattresses, dressers — we handle the heavy lifting so you
+              never strain your back.
+            </p>
+            <a
+              href="contact.html"
+              style="
+                color: var(--color-lake);
+                font-size: 0.85rem;
+                font-weight: 500;
+                text-decoration: none;
+              "
+              class="card-arrow"
+              >Get a Quote
+              <i class="ti ti-arrow-right" style="font-size: 14px"></i
+            ></a>
+          </div>
+
+          <div
+            class="service-card"
+            style="grid-column: 2 / span 2"
+            data-reveal
+            data-delay="1"
+          >
+            <div class="icon-box">
+              <i
+                class="ti ti-plant"
+                style="font-size: 26px; color: var(--color-sage)"
+              ></i>
+            </div>
+            <h3
+              style="
+                font-size: 1.2rem;
+                font-weight: 500;
+                margin-bottom: 0.5rem;
+                color: var(--color-charcoal);
+              "
+            >
+              Yard Waste & Brush
+            </h3>
+            <p
+              style="
+                color: var(--color-stone);
+                font-size: 0.88rem;
+                flex: 1;
+                margin-bottom: 1rem;
+              "
+            >
+              Storm debris, brush piles, old lumber — cleared and hauled from
+              properties across Addison County and the surrounding area.
+            </p>
+            <a
+              href="contact.html"
+              style="
+                color: var(--color-lake);
+                font-size: 0.85rem;
+                font-weight: 500;
+                text-decoration: none;
+              "
+              class="card-arrow"
+              >Get a Quote
+              <i class="ti ti-arrow-right" style="font-size: 14px"></i
+            ></a>
+          </div>
+
+          <div
+            class="service-card"
+            style="grid-column: span 2"
+            data-reveal
+            data-delay="2"
+          >
+            <div class="icon-box">
+              <i
+                class="ti ti-key"
+                style="font-size: 26px; color: var(--color-sage)"
+              ></i>
+            </div>
+            <h3
+              style="
+                font-size: 1.2rem;
+                font-weight: 500;
+                margin-bottom: 0.5rem;
+                color: var(--color-charcoal);
+              "
+            >
+              Estate Cleanouts
+            </h3>
+            <p
+              style="
+                color: var(--color-stone);
+                font-size: 0.88rem;
+                flex: 1;
+                margin-bottom: 1rem;
+              "
+            >
+              Full-property cleanouts handled with care, discretion, and
+              efficiency — at a pace that works for you.
+            </p>
+            <a
+              href="contact.html"
+              style="
+                color: var(--color-lake);
+                font-size: 0.85rem;
+                font-weight: 500;
+                text-decoration: none;
+              "
+              class="card-arrow"
+              >Get a Quote
+              <i class="ti ti-arrow-right" style="font-size: 14px"></i
+            ></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="section" style="background: var(--color-cream)">
+      <div class="container">
+        <div
+          style="text-align: center; margin-bottom: var(--space-2xl)"
+          data-reveal
+        >
+          <span class="eyebrow">Simple Process</span>
+          <h2
+            style="
+              font-size: 2.25rem;
+              font-weight: 600;
+              color: var(--color-charcoal);
+            "
+          >
+            How It Works
+          </h2>
+          <p
+            style="
+              color: var(--color-stone);
+              max-width: 440px;
+              margin: 0.75rem auto 0;
+              font-size: 0.95rem;
+            "
+          >
+            Three easy steps from request to empty room — no stress, no
+            surprises.
+          </p>
+        </div>
+
+        <div
+          class="steps-grid"
+          style="
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+            position: relative;
+          "
+        >
+          <!-- Connector line — now visible -->
+          <div
+            style="
+              position: absolute;
+              top: 34px;
+              left: calc(16.67% + 34px);
+              right: calc(16.67% + 34px);
+              height: 2px;
+              border-top: 2px dashed var(--color-sage-light);
+              opacity: 0.45;
+            "
+          ></div>
+
+          <div
+            style="text-align: center; position: relative"
+            data-reveal
+            data-delay="1"
+          >
+            <div style="position: relative; display: inline-block">
+              <span class="step-ghost-num">1</span>
+              <div class="step-circle">
+                <i
+                  class="ti ti-circle-check"
+                  style="font-size: 28px; color: var(--color-snow)"
+                ></i>
+              </div>
+            </div>
+            <span
+              style="
+                font-family: var(--font-body);
+                font-size: 0.68rem;
+                font-weight: 600;
+                letter-spacing: 0.25em;
+                text-transform: uppercase;
+                color: var(--color-sage);
+                display: block;
+                margin-bottom: 0.5rem;
+              "
+              >Step 01</span
+            >
+            <h3
+              style="
+                font-size: 1.3rem;
+                font-weight: 500;
+                margin-bottom: 0.5rem;
+                color: var(--color-charcoal);
+              "
+            >
+              Request a Quote
+            </h3>
+            <p style="color: var(--color-stone); font-size: 0.9rem">
+              Fill out our quick form and tell us what needs to go. We'll
+              respond fast with next steps.
+            </p>
+          </div>
+
+          <div
+            style="text-align: center; position: relative"
+            data-reveal
+            data-delay="2"
+          >
+            <div style="position: relative; display: inline-block">
+              <span class="step-ghost-num">2</span>
+              <div class="step-circle">
+                <i
+                  class="ti ti-currency-dollar"
+                  style="font-size: 28px; color: var(--color-snow)"
+                ></i>
+              </div>
+            </div>
+            <span
+              style="
+                font-family: var(--font-body);
+                font-size: 0.68rem;
+                font-weight: 600;
+                letter-spacing: 0.25em;
+                text-transform: uppercase;
+                color: var(--color-sage);
+                display: block;
+                margin-bottom: 0.5rem;
+              "
+              >Step 02</span
+            >
+            <h3
+              style="
+                font-size: 1.3rem;
+                font-weight: 500;
+                margin-bottom: 0.5rem;
+                color: var(--color-charcoal);
+              "
+            >
+              We Give You a Price
+            </h3>
+            <p style="color: var(--color-stone); font-size: 0.9rem">
+              Honest, upfront pricing before we lift a finger. You approve it —
+              then we get to work.
+            </p>
+          </div>
+
+          <div
+            style="text-align: center; position: relative"
+            data-reveal
+            data-delay="3"
+          >
+            <div style="position: relative; display: inline-block">
+              <span class="step-ghost-num">3</span>
+              <div class="step-circle">
+                <i
+                  class="ti ti-truck"
+                  style="font-size: 28px; color: var(--color-snow)"
+                ></i>
+              </div>
+            </div>
+            <span
+              style="
+                font-family: var(--font-body);
+                font-size: 0.68rem;
+                font-weight: 600;
+                letter-spacing: 0.25em;
+                text-transform: uppercase;
+                color: var(--color-sage);
+                display: block;
+                margin-bottom: 0.5rem;
+              "
+              >Step 03</span
+            >
+            <h3
+              style="
+                font-size: 1.3rem;
+                font-weight: 500;
+                margin-bottom: 0.5rem;
+                color: var(--color-charcoal);
+              "
+            >
+              We Haul It Away
+            </h3>
+            <p style="color: var(--color-stone); font-size: 0.9rem">
+              Our crew shows up, does the heavy lifting, and leaves your space
+              spotless. Just gone.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRICING CALLOUT -->
+    <section
+      style="
+        background: var(--color-pine-dark);
+        padding: var(--space-3xl) 0;
+        position: relative;
+        overflow: hidden;
+      "
+    >
+      <div
+        style="
+          position: absolute;
+          right: -120px;
+          top: -120px;
+          width: 550px;
+          height: 550px;
+          border-radius: 50%;
+          background: radial-gradient(
+            circle,
+            rgba(107, 143, 94, 0.1) 0%,
+            transparent 70%
+          );
+        "
+      ></div>
+      <div
+        style="
+          position: absolute;
+          left: -80px;
+          bottom: -80px;
+          width: 400px;
+          height: 400px;
+          border-radius: 50%;
+          background: radial-gradient(
+            circle,
+            rgba(122, 159, 175, 0.07) 0%,
+            transparent 70%
+          );
+        "
+      ></div>
+      <div
+        class="container"
+        style="text-align: center; position: relative; z-index: 1"
+      >
+        <span class="eyebrow eyebrow-light" data-reveal
+          >Transparency First</span
+        >
+        <h2
+          style="
+            font-size: 2.25rem;
+            font-weight: 600;
+            color: var(--color-snow);
+            margin-bottom: var(--space-lg);
+          "
+          data-reveal
+        >
+          Upfront Pricing. Always.
+        </h2>
+        <p
+          style="
+            color: var(--color-mist);
+            max-width: 580px;
+            margin: 0 auto var(--space-xl);
+            font-size: 1.02rem;
+            line-height: 1.75;
+          "
+          data-reveal
+        >
+          We quote you a firm price before any work begins. No hourly surprises.
+          No add-ons. You'll know exactly what you're paying — and we won't
+          touch a thing until you say yes.
+        </p>
+        <div
+          style="
+            display: flex;
+            justify-content: center;
+            gap: 2.5rem;
+            flex-wrap: wrap;
+            margin-bottom: var(--space-xl);
+          "
+          data-reveal
+        >
+          <div style="display: flex; align-items: center; gap: 0.5rem">
+            <i
+              class="ti ti-circle-check"
+              style="color: var(--color-sage-light); font-size: 18px"
+            ></i>
+            <span style="color: var(--color-snow); font-size: 0.88rem"
+              >Price confirmed before we start</span
+            >
+          </div>
+          <div style="display: flex; align-items: center; gap: 0.5rem">
+            <i
+              class="ti ti-circle-check"
+              style="color: var(--color-sage-light); font-size: 18px"
+            ></i>
+            <span style="color: var(--color-snow); font-size: 0.88rem"
+              >No hourly fees</span
+            >
+          </div>
+          <div style="display: flex; align-items: center; gap: 0.5rem">
+            <i
+              class="ti ti-circle-check"
+              style="color: var(--color-sage-light); font-size: 18px"
+            ></i>
+            <span style="color: var(--color-snow); font-size: 0.88rem"
+              >No hidden charges</span
+            >
+          </div>
+          <div style="display: flex; align-items: center; gap: 0.5rem">
+            <i
+              class="ti ti-circle-check"
+              style="color: var(--color-sage-light); font-size: 18px"
+            ></i>
+            <span style="color: var(--color-snow); font-size: 0.88rem"
+              >Free, no-obligation quotes</span
+            >
+          </div>
+        </div>
+        <a
+          href="contact.html"
+          class="btn-primary"
+          style="background: var(--color-sage); color: var(--color-snow)"
+          data-reveal
+          >See Upfront Pricing</a
+        >
+      </div>
+    </section>
+
+    <!-- ECO COMMITMENT -->
+    <section class="section" style="background: var(--color-warm-white)">
+      <div class="container">
+        <div
+          class="eco-grid"
+          style="
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-3xl);
+            align-items: center;
+          "
+        >
+          <div data-reveal>
+            <span class="eyebrow">Good for Vermont</span>
+            <h2
+              style="
+                font-size: 2.1rem;
+                font-weight: 600;
+                color: var(--color-charcoal);
+                margin-bottom: var(--space-md);
+              "
+            >
+              We Haul Responsibly
+            </h2>
+            <div
+              style="
+                width: 48px;
+                height: 3px;
+                background: linear-gradient(
+                  to right,
+                  var(--color-sage),
+                  var(--color-sage-light)
+                );
+                border-radius: 2px;
+                margin-bottom: var(--space-lg);
+              "
+            ></div>
+            <p
+              style="
+                color: var(--color-stone);
+                line-height: 1.75;
+                margin-bottom: var(--space-xl);
+              "
+            >
+              Vermont's natural beauty matters to us. We sort every load
+              thoughtfully — donating what can be reused, recycling what can be
+              processed, and only sending to the landfill as a last resort.
+            </p>
+            <div
+              style="
+                display: flex;
+                flex-direction: column;
+                gap: var(--space-md);
+              "
+            >
+              <div
+                style="
+                  display: flex;
+                  align-items: flex-start;
+                  gap: var(--space-md);
+                "
+              >
+                <div
+                  style="
+                    width: 44px;
+                    height: 44px;
+                    background: linear-gradient(
+                      135deg,
+                      var(--color-snow) 0%,
+                      rgba(107, 143, 94, 0.15) 100%
+                    );
+                    border-radius: 11px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    flex-shrink: 0;
+                    box-shadow: var(--shadow-card);
+                  "
+                >
+                  <i
+                    class="ti ti-armchair"
+                    style="font-size: 20px; color: var(--color-sage)"
+                  ></i>
+                </div>
+                <div>
+                  <div
+                    style="
+                      font-weight: 600;
+                      font-size: 0.92rem;
+                      margin-bottom: 3px;
+                      color: var(--color-charcoal);
+                    "
+                  >
+                    Donate First
+                  </div>
+                  <div style="color: var(--color-stone); font-size: 0.85rem">
+                    Usable items go to local Vermont organizations and families
+                    in need.
+                  </div>
+                </div>
+              </div>
+
+              <div
+                style="
+                  display: flex;
+                  align-items: flex-start;
+                  gap: var(--space-md);
+                "
+              >
+                <div
+                  style="
+                    width: 44px;
+                    height: 44px;
+                    background: linear-gradient(
+                      135deg,
+                      var(--color-snow) 0%,
+                      rgba(107, 143, 94, 0.15) 100%
+                    );
+                    border-radius: 11px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    flex-shrink: 0;
+                    box-shadow: var(--shadow-card);
+                  "
+                >
+                  <i
+                    class="ti ti-recycle"
+                    style="font-size: 20px; color: var(--color-sage)"
+                  ></i>
+                </div>
+                <div>
+                  <div
+                    style="
+                      font-weight: 600;
+                      font-size: 0.92rem;
+                      margin-bottom: 3px;
+                      color: var(--color-charcoal);
+                    "
+                  >
+                    Recycle Second
+                  </div>
+                  <div style="color: var(--color-stone); font-size: 0.85rem">
+                    Metals, electronics, and recyclables are sorted and
+                    processed properly.
+                  </div>
+                </div>
+              </div>
+
+              <div
+                style="
+                  display: flex;
+                  align-items: flex-start;
+                  gap: var(--space-md);
+                "
+              >
+                <div
+                  style="
+                    width: 44px;
+                    height: 44px;
+                    background: linear-gradient(
+                      135deg,
+                      var(--color-snow) 0%,
+                      rgba(107, 143, 94, 0.15) 100%
+                    );
+                    border-radius: 11px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    flex-shrink: 0;
+                    box-shadow: var(--shadow-card);
+                  "
+                >
+                  <i
+                    class="ti ti-leaf"
+                    style="font-size: 20px; color: var(--color-sage)"
+                  ></i>
+                </div>
+                <div>
+                  <div
+                    style="
+                      font-weight: 600;
+                      font-size: 0.92rem;
+                      margin-bottom: 3px;
+                      color: var(--color-charcoal);
+                    "
+                  >
+                    Dispose Responsibly
+                  </div>
+                  <div style="color: var(--color-stone); font-size: 0.85rem">
+                    Only what can't be donated or recycled goes to a licensed
+                    Vermont facility.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div style="position: relative" data-reveal data-delay="2">
+            <img
+              src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=600&h=520&q=80"
+              alt="Vermont forest"
+              style="
+                width: 100%;
+                border-radius: 18px;
+                display: block;
+                object-fit: cover;
+                height: 520px;
+              "
+            />
+            <div
+              style="
+                position: absolute;
+                inset: 0;
+                background: linear-gradient(
+                  to bottom,
+                  transparent 40%,
+                  rgba(30, 51, 38, 0.55) 100%
+                );
+                border-radius: 18px;
+              "
+            ></div>
+            <div
+              style="
+                position: absolute;
+                inset: 0;
+                background: rgba(61, 99, 71, 0.15);
+                border-radius: 18px;
+                mix-blend-mode: multiply;
+              "
+            ></div>
+            <div
+              style="
+                position: absolute;
+                bottom: 1.5rem;
+                left: 1.5rem;
+                right: 1.5rem;
+                background: rgba(30, 51, 38, 0.88);
+                backdrop-filter: blur(10px);
+                border-radius: 12px;
+                padding: 1rem 1.25rem;
+                display: flex;
+                align-items: center;
+                gap: 0.75rem;
+                border: 1px solid rgba(107, 143, 94, 0.25);
+              "
+            >
+              <i
+                class="ti ti-leaf"
+                style="
+                  color: var(--color-sage-light);
+                  font-size: 22px;
+                  flex-shrink: 0;
+                "
+              ></i>
+              <span
+                style="
+                  color: var(--color-snow);
+                  font-size: 0.85rem;
+                  font-weight: 500;
+                  line-height: 1.4;
+                "
+                >Proudly keeping Vermont green — one load at a time</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- REVIEWS -->
+    <section class="section" style="background: var(--color-cream)">
+      <div class="container">
+        <div
+          style="text-align: center; margin-bottom: var(--space-2xl)"
+          data-reveal
+        >
+          <span class="eyebrow">What Customers Say</span>
+          <h2
+            style="
+              font-size: 2.25rem;
+              font-weight: 600;
+              color: var(--color-charcoal);
+            "
+          >
+            Real Reviews from Real Neighbors
+          </h2>
+        </div>
+
+        <!-- Dynamic reviews -->
+        <div id="reviewsGrid" style="margin-bottom: 2.5rem"></div>
+
+        <!-- Leave a review -->
+        <div style="max-width: 580px; margin: 0 auto" data-reveal>
+          <div
+            id="reviewFormToggle"
+            style="text-align: center; margin-bottom: 1.5rem"
+          >
+            <button
+              onclick="
+                document.getElementById('reviewFormWrap').style.display =
+                  'block';
+                this.style.display = 'none';
+              "
+              style="
+                display: inline-flex;
+                align-items: center;
+                gap: 0.5rem;
+                padding: 12px 28px;
+                background: var(--color-pine-dark);
+                color: var(--color-snow);
+                font-family: var(--font-body);
+                font-size: 0.88rem;
+                font-weight: 600;
+                border: none;
+                border-radius: 8px;
+                cursor: pointer;
+                transition: background 0.2s ease;
+              "
+              onmouseover="this.style.background = 'var(--color-pine-mid)'"
+              onmouseout="this.style.background = 'var(--color-pine-dark)'"
+            >
+              <i class="ti ti-pencil" style="font-size: 16px"></i> Leave a
+              Review
+            </button>
+          </div>
+          <div
+            id="reviewFormWrap"
+            style="
+              display: none;
+              background: white;
+              border-radius: 16px;
+              padding: 2rem;
+              box-shadow: 0 4px 24px rgba(30, 51, 38, 0.08);
+              border: 1px solid rgba(168, 196, 207, 0.25);
+            "
+          >
+            <h3
+              style="
+                font-family: var(--font-display);
+                font-size: 1.25rem;
+                font-weight: 600;
+                color: var(--color-charcoal);
+                margin-bottom: 0.25rem;
+              "
+            >
+              Share Your Experience
+            </h3>
+            <p
+              style="
+                color: var(--color-stone);
+                font-size: 0.85rem;
+                margin-bottom: 1.5rem;
+              "
+            >
+              Your honest feedback helps others and helps us improve.
+            </p>
+
+            <!-- Star rating -->
+            <div style="margin-bottom: 1.25rem">
+              <div
+                style="
+                  font-size: 0.75rem;
+                  font-weight: 600;
+                  text-transform: uppercase;
+                  letter-spacing: 0.1em;
+                  color: var(--color-stone);
+                  margin-bottom: 0.5rem;
+                "
+              >
+                Your Rating <span style="color: #c0392b">*</span>
+              </div>
+              <div id="starPicker" style="display: flex; gap: 6px">
+                <span
+                  class="star-pick"
+                  data-v="1"
+                  onclick="setRating(1)"
+                  style="
+                    font-size: 2rem;
+                    cursor: pointer;
+                    color: var(--color-lake-light);
+                    transition: color 0.15s;
+                  "
+                  >★</span
+                >
+                <span
+                  class="star-pick"
+                  data-v="2"
+                  onclick="setRating(2)"
+                  style="
+                    font-size: 2rem;
+                    cursor: pointer;
+                    color: var(--color-lake-light);
+                    transition: color 0.15s;
+                  "
+                  >★</span
+                >
+                <span
+                  class="star-pick"
+                  data-v="3"
+                  onclick="setRating(3)"
+                  style="
+                    font-size: 2rem;
+                    cursor: pointer;
+                    color: var(--color-lake-light);
+                    transition: color 0.15s;
+                  "
+                  >★</span
+                >
+                <span
+                  class="star-pick"
+                  data-v="4"
+                  onclick="setRating(4)"
+                  style="
+                    font-size: 2rem;
+                    cursor: pointer;
+                    color: var(--color-lake-light);
+                    transition: color 0.15s;
+                  "
+                  >★</span
+                >
+                <span
+                  class="star-pick"
+                  data-v="5"
+                  onclick="setRating(5)"
+                  style="
+                    font-size: 2rem;
+                    cursor: pointer;
+                    color: var(--color-lake-light);
+                    transition: color 0.15s;
+                  "
+                  >★</span
+                >
+              </div>
+              <input type="hidden" id="ratingVal" value="0" />
+            </div>
+
+            <div
+              style="
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 1rem;
+                margin-bottom: 1rem;
+              "
+            >
+              <div>
+                <label
+                  style="
+                    display: block;
+                    font-size: 0.75rem;
+                    font-weight: 600;
+                    text-transform: uppercase;
+                    letter-spacing: 0.1em;
+                    color: var(--color-stone);
+                    margin-bottom: 0.4rem;
+                  "
+                  >Your Name <span style="color: #c0392b">*</span></label
+                >
+                <input
+                  id="rvName"
+                  type="text"
+                  placeholder="Jane D."
+                  style="
+                    width: 100%;
+                    padding: 10px 14px;
+                    border: 1.5px solid var(--color-lake-light);
+                    border-radius: 8px;
+                    font-family: var(--font-body);
+                    font-size: 0.9rem;
+                    color: var(--color-charcoal);
+                    background: white;
+                    box-sizing: border-box;
+                  "
+                />
+              </div>
+              <div>
+                <label
+                  style="
+                    display: block;
+                    font-size: 0.75rem;
+                    font-weight: 600;
+                    text-transform: uppercase;
+                    letter-spacing: 0.1em;
+                    color: var(--color-stone);
+                    margin-bottom: 0.4rem;
+                  "
+                  >Town
+                  <span
+                    style="
+                      font-weight: 400;
+                      text-transform: none;
+                      letter-spacing: 0;
+                    "
+                    >(optional)</span
+                  ></label
+                >
+                <input
+                  id="rvTown"
+                  type="text"
+                  placeholder="Vergennes, VT"
+                  style="
+                    width: 100%;
+                    padding: 10px 14px;
+                    border: 1.5px solid var(--color-lake-light);
+                    border-radius: 8px;
+                    font-family: var(--font-body);
+                    font-size: 0.9rem;
+                    color: var(--color-charcoal);
+                    background: white;
+                    box-sizing: border-box;
+                  "
+                />
+              </div>
+            </div>
+
+            <div style="margin-bottom: 1.25rem">
+              <label
+                style="
+                  display: block;
+                  font-size: 0.75rem;
+                  font-weight: 600;
+                  text-transform: uppercase;
+                  letter-spacing: 0.1em;
+                  color: var(--color-stone);
+                  margin-bottom: 0.4rem;
+                "
+                >Your Review <span style="color: #c0392b">*</span></label
+              >
+              <textarea
+                id="rvMessage"
+                rows="4"
+                placeholder="Tell others about your experience…"
+                style="
+                  width: 100%;
+                  padding: 10px 14px;
+                  border: 1.5px solid var(--color-lake-light);
+                  border-radius: 8px;
+                  font-family: var(--font-body);
+                  font-size: 0.9rem;
+                  color: var(--color-charcoal);
+                  background: white;
+                  resize: vertical;
+                  box-sizing: border-box;
+                "
+              ></textarea>
+            </div>
+
+            <div
+              id="rvError"
+              style="
+                display: none;
+                color: #c0392b;
+                font-size: 0.82rem;
+                margin-bottom: 0.75rem;
+              "
+            ></div>
+
+            <div style="display: flex; gap: 0.75rem; align-items: center">
+              <button
+                onclick="submitReview()"
+                style="
+                  padding: 11px 28px;
+                  background: var(--color-sage);
+                  color: white;
+                  font-family: var(--font-body);
+                  font-size: 0.88rem;
+                  font-weight: 600;
+                  border: none;
+                  border-radius: 8px;
+                  cursor: pointer;
+                  transition: background 0.2s ease;
+                "
+                onmouseover="this.style.background = 'var(--color-pine-mid)'"
+                onmouseout="this.style.background = 'var(--color-sage)'"
+              >
+                Submit Review
+              </button>
+              <button
+                onclick="
+                  document.getElementById('reviewFormWrap').style.display =
+                    'none';
+                  document.getElementById('reviewFormToggle').style.display =
+                    'block';
+                "
+                style="
+                  padding: 11px 20px;
+                  background: none;
+                  color: var(--color-stone);
+                  font-family: var(--font-body);
+                  font-size: 0.88rem;
+                  border: 1.5px solid var(--color-lake-light);
+                  border-radius: 8px;
+                  cursor: pointer;
+                "
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+          <div
+            id="reviewSuccess"
+            style="
+              display: none;
+              text-align: center;
+              padding: 1.5rem;
+              background: rgba(107, 143, 94, 0.08);
+              border: 1.5px solid var(--color-sage);
+              border-radius: 12px;
+            "
+          >
+            <i
+              class="ti ti-circle-check"
+              style="
+                font-size: 32px;
+                color: var(--color-sage);
+                display: block;
+                margin-bottom: 0.5rem;
+              "
+            ></i>
+            <div
+              style="
+                font-weight: 600;
+                color: var(--color-charcoal);
+                margin-bottom: 0.25rem;
+              "
+            >
+              Thank you!
+            </div>
+            <div style="font-size: 0.85rem; color: var(--color-stone)">
+              Your review has been posted.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA BANNER -->
+    <section
+      style="
+        background: var(--color-pine-mid);
+        padding: var(--space-3xl) 0;
+        position: relative;
+        overflow: hidden;
+      "
+    >
+      <div
+        style="
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(
+            135deg,
+            var(--color-pine-dark) 0%,
+            var(--color-pine-mid) 100%
+          );
+        "
+      ></div>
+      <!-- subtle grid overlay -->
+      <svg
+        style="
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          opacity: 0.03;
+        "
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <defs>
+          <pattern
+            id="grid"
+            width="40"
+            height="40"
+            patternUnits="userSpaceOnUse"
+          >
+            <path
+              d="M 40 0 L 0 0 0 40"
+              fill="none"
+              stroke="white"
+              stroke-width="1"
+            />
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#grid)" />
+      </svg>
+      <div
+        style="
+          position: absolute;
+          right: -80px;
+          top: -80px;
+          width: 400px;
+          height: 400px;
+          border-radius: 50%;
+          background: radial-gradient(
+            circle,
+            rgba(107, 143, 94, 0.12) 0%,
+            transparent 70%
+          );
+        "
+      ></div>
+      <div
+        class="container"
+        style="text-align: center; position: relative; z-index: 1"
+      >
+        <span class="eyebrow eyebrow-light" data-reveal
+          >No Pressure, No Obligation</span
+        >
+        <h2
+          style="
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: var(--color-snow);
+            margin-bottom: 1rem;
+          "
+          data-reveal
+        >
+          Ready to Clear the Clutter?
+        </h2>
+        <p
+          style="
+            color: var(--color-mist);
+            margin-bottom: var(--space-xl);
+            font-size: 1rem;
+            max-width: 460px;
+            margin-left: auto;
+            margin-right: auto;
+          "
+          data-reveal
+        >
+          Get a free quote in minutes. Honest pricing, no commitment required.
+          We'll get back to you fast.
+        </p>
+        <a
+          href="contact.html"
+          class="btn-primary"
+          style="
+            background: var(--color-snow);
+            color: var(--color-pine-dark);
+            font-weight: 600;
+            padding: 16px 40px;
+            font-size: 0.95rem;
+          "
+          data-reveal
+          >Get Your Free Quote</a
+        >
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="main-footer">
+      <div class="container">
+        <div
+          class="footer-grid"
+          style="
+            display: grid;
+            grid-template-columns: 1.6fr 1fr 1.2fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+          "
+        >
+          <div>
+            <a
+              href="index.html"
+              style="
+                display: inline-flex;
+                align-items: center;
+                gap: 0.6rem;
+                text-decoration: none;
+                margin-bottom: 1.25rem;
+              "
+            >
+              <span
+                style="
+                  width: 40px;
+                  height: 40px;
+                  border-radius: 10px;
+                  background: var(--color-sage);
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  flex-shrink: 0;
+                  box-shadow: 0 2px 10px rgba(107, 143, 94, 0.3);
+                "
+              >
+                <i
+                  class="ti ti-truck"
+                  style="color: white; font-size: 19px"
+                ></i>
+              </span>
+              <span style="line-height: 1.2">
+                <span
+                  style="
+                    display: block;
+                    font-family: var(--font-display);
+                    font-size: 1.05rem;
+                    font-weight: 700;
+                    color: var(--color-snow);
+                    letter-spacing: -0.01em;
+                  "
+                  >Champlain</span
+                >
+                <span
+                  style="
+                    display: block;
+                    font-family: var(--font-body);
+                    font-size: 0.63rem;
+                    font-weight: 600;
+                    color: var(--color-sage-light);
+                    letter-spacing: 0.1em;
+                    text-transform: uppercase;
+                  "
+                  >Junk Removal</span
+                >
+              </span>
+            </a>
+            <p
+              style="
+                color: var(--color-mist);
+                font-size: 0.85rem;
+                line-height: 1.75;
+                max-width: 280px;
+                margin-bottom: 1rem;
+              "
+            >
+              Locally owned and operated in Vermont. Licensed, insured, and
+              committed to keeping as much as possible out of the landfill.
+            </p>
+            <div style="display: flex; align-items: center; gap: 0.5rem">
+              <i
+                class="ti ti-shield-check"
+                style="color: var(--color-sage); font-size: 14px"
+              ></i>
+              <span
+                style="
+                  font-size: 0.78rem;
+                  color: var(--color-sage-light);
+                  font-weight: 500;
+                "
+                >Licensed &amp; Insured in Vermont</span
+              >
+            </div>
+          </div>
+
+          <div>
+            <div
+              style="
+                font-family: var(--font-body);
+                font-size: 0.7rem;
+                font-weight: 600;
+                letter-spacing: 0.25em;
+                text-transform: uppercase;
+                color: var(--color-sage-light);
+                margin-bottom: 1.25rem;
+              "
+            >
+              Pages
+            </div>
+            <ul
+              style="
+                list-style: none;
+                display: flex;
+                flex-direction: column;
+                gap: 0.75rem;
+              "
+            >
+              <li><a href="index.html" class="footer-link">Home</a></li>
+              <li><a href="about.html" class="footer-link">About Us</a></li>
+              <li><a href="contact.html" class="footer-link">Contact</a></li>
+              <li>
+                <a href="contact.html" class="footer-link">Get a Free Quote</a>
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <div
+              style="
+                font-family: var(--font-body);
+                font-size: 0.7rem;
+                font-weight: 600;
+                letter-spacing: 0.25em;
+                text-transform: uppercase;
+                color: var(--color-sage-light);
+                margin-bottom: 1.25rem;
+              "
+            >
+              Get in Touch
+            </div>
+            <div
+              style="
+                display: flex;
+                align-items: center;
+                gap: 0.6rem;
+                margin-bottom: 0.75rem;
+              "
+            >
+              <i
+                class="ti ti-mail"
+                style="
+                  color: var(--color-sage);
+                  font-size: 16px;
+                  flex-shrink: 0;
+                "
+              ></i>
+              <a
+                href="mailto:help@champlainjunkremoval.com"
+                style="
+                  color: var(--color-lake);
+                  text-decoration: none;
+                  font-size: 0.85rem;
+                  transition: color 0.2s;
+                "
+                onmouseover="this.style.color = 'var(--color-snow)'"
+                onmouseout="this.style.color = 'var(--color-lake)'"
+                >help@champlainjunkremoval.com</a
+              >
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.6rem">
+              <i
+                class="ti ti-map-pin"
+                style="
+                  color: var(--color-sage);
+                  font-size: 16px;
+                  flex-shrink: 0;
+                "
+              ></i>
+              <span style="color: var(--color-mist); font-size: 0.85rem"
+                >Serving Addison County &amp; surrounding communities</span
+              >
+            </div>
+          </div>
+        </div>
+
+        <div
+          style="
+            border-top: 1px solid rgba(168, 196, 207, 0.15);
+            padding-top: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+          "
+        >
+          <span style="color: var(--color-stone); font-size: 0.8rem"
+            >© 2026 Champlain Junk Removal · Locally owned in Vermont · Est.
+            2026</span
+          >
+          <span style="color: var(--color-stone); font-size: 0.8rem"
+            >Licensed &amp; Insured</span
+          >
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      const revealObs = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.classList.add("in-view");
+              revealObs.unobserve(e.target);
+            }
+          });
+        },
+        { threshold: 0.12 },
+      );
+      document
+        .querySelectorAll("[data-reveal]")
+        .forEach((el) => revealObs.observe(el));
+
+      /* ── REVIEW SYSTEM ────────────────────────────────────── */
+      const COLORS = [
+        "linear-gradient(135deg,var(--color-pine-mid),var(--color-sage))",
+        "linear-gradient(135deg,var(--color-lake),var(--color-sage-light))",
+        "linear-gradient(135deg,var(--color-pine-dark),var(--color-pine-mid))",
+        "linear-gradient(135deg,var(--color-sage),var(--color-lake))",
+      ];
+      let selectedRating = 0;
+
+      function getReviews() {
+        try {
+          return JSON.parse(localStorage.getItem("cjr_reviews") || "[]");
+        } catch {
+          return [];
+        }
+      }
+      function saveReviews(arr) {
+        localStorage.setItem("cjr_reviews", JSON.stringify(arr));
+      }
+
+      function setRating(n) {
+        selectedRating = n;
+        document.getElementById("ratingVal").value = n;
+        document.querySelectorAll(".star-pick").forEach((s) => {
+          s.style.color =
+            parseInt(s.dataset.v) <= n ? "#E8A020" : "var(--color-lake-light)";
+        });
+      }
+
+      function renderReviews() {
+        const reviews = getReviews();
+        const grid = document.getElementById("reviewsGrid");
+        if (!reviews.length) {
+          grid.innerHTML =
+            '<p style="text-align:center; color:var(--color-stone); font-size:0.92rem; padding:2rem 0;">No reviews yet — be the first to share your experience!</p>';
+          return;
+        }
+        const cols =
+          reviews.length === 1
+            ? "1fr"
+            : reviews.length === 2
+              ? "repeat(2,1fr)"
+              : "repeat(3,1fr)";
+        grid.style.cssText =
+          "display:grid; grid-template-columns:" +
+          cols +
+          "; gap:1.5rem; margin-bottom:2.5rem;";
+        grid.innerHTML = reviews
+          .map((r, i) => {
+            const stars = "★".repeat(r.rating) + "☆".repeat(5 - r.rating);
+            const initial = r.name.trim().charAt(0).toUpperCase();
+            const bg = COLORS[i % COLORS.length];
+            const date = new Date(r.date).toLocaleDateString("en-US", {
+              month: "short",
+              year: "numeric",
+            });
+            return `<div class="review-card">
+          <div style="color:#E8A020; font-size:1.05rem; letter-spacing:2px; margin-bottom:0.75rem;">${stars}</div>
+          <p style="color:var(--color-stone); font-size:0.9rem; line-height:1.7; margin-bottom:1.25rem; font-style:italic;">"${r.message}"</p>
+          <div style="display:flex; align-items:center; gap:0.75rem;">
+            <div style="width:38px; height:38px; border-radius:50%; background:${bg}; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+              <span style="color:var(--color-snow); font-size:0.85rem; font-weight:600;">${initial}</span>
+            </div>
+            <div>
+              <div style="font-weight:600; font-size:0.88rem; color:var(--color-charcoal);">${r.name}</div>
+              <div style="font-size:0.78rem; color:var(--color-stone);">${r.town ? r.town + " · " : ""}${date}</div>
+            </div>
+          </div>
+        </div>`;
+          })
+          .join("");
+      }
+
+      function submitReview() {
+        const name = document.getElementById("rvName").value.trim();
+        const town = document.getElementById("rvTown").value.trim();
+        const msg = document.getElementById("rvMessage").value.trim();
+        const err = document.getElementById("rvError");
+        if (!name) {
+          err.textContent = "Please enter your name.";
+          err.style.display = "block";
+          return;
+        }
+        if (!selectedRating) {
+          err.textContent = "Please select a star rating.";
+          err.style.display = "block";
+          return;
+        }
+        if (!msg) {
+          err.textContent = "Please write a short review.";
+          err.style.display = "block";
+          return;
+        }
+        err.style.display = "none";
+        const reviews = getReviews();
+        reviews.unshift({
+          id: Date.now(),
+          name,
+          town,
+          rating: selectedRating,
+          message: msg,
+          date: new Date().toISOString(),
+        });
+        saveReviews(reviews);
+        document.getElementById("reviewFormWrap").style.display = "none";
+        document.getElementById("reviewFormToggle").style.display = "none";
+        document.getElementById("reviewSuccess").style.display = "block";
+        renderReviews();
+      }
+
+      renderReviews();
+    </script>
+  </body>
+</html>

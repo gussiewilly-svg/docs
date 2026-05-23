@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><rect width=%27100%27 height=%27100%27 rx=%2720%27 fill=%27%232D4A35%27/><text y=%27.9em%27 font-size=%2782%27>🚛</text></svg>">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin — Champlain Junk Removal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <style>
+    :root {
+      --pine-dark: #1E3326; --pine: #2D4A35; --pine-mid: #3D6347;
+      --sage: #6B8F5E; --sage-light: #8FAF7E;
+      --lake-light: #A8C4CF; --snow: #E8EDE6;
+      --cream: #F4F2EC; --warm-white: #FAFAF7;
+      --charcoal: #1A1F1B; --stone: #5C6B5F;
+      --red: #C0392B; --red-bg: rgba(192,57,43,0.08);
+      --font-d: 'Playfair Display', serif; --font-b: 'DM Sans', sans-serif;
+      --shadow: 0 1px 3px rgba(30,51,38,0.06), 0 4px 16px rgba(30,51,38,0.08);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font-b); color: var(--charcoal); background: var(--warm-white); min-height: 100vh; }
+
+    /* ── LOGIN ─────────────────────────────────────────── */
+    #loginScreen {
+      min-height: 100vh;
+      background: linear-gradient(135deg, var(--pine-dark) 0%, var(--pine-mid) 100%);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .login-card {
+      background: white; border-radius: 16px; padding: 3rem 2.5rem;
+      width: 100%; max-width: 380px;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.3); text-align: center;
+    }
+
+    /* ── HEADER ────────────────────────────────────────── */
+    .admin-header {
+      background: var(--pine-dark); height: 60px;
+      display: flex; align-items: center; padding: 0 1.5rem; gap: 1rem;
+      position: sticky; top: 0; z-index: 100;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.2);
+    }
+    .tab-btn {
+      padding: 6px 14px; border-radius: 6px; font-family: var(--font-b);
+      font-size: 0.83rem; font-weight: 500; color: rgba(184,205,181,0.7);
+      cursor: pointer; border: none; background: none;
+      transition: background 0.15s, color 0.15s; white-space: nowrap;
+    }
+    .tab-btn:hover { background: rgba(255,255,255,0.1); color: var(--snow); }
+    .tab-btn.active { background: var(--sage); color: white; }
+
+    /* ── LAYOUT ────────────────────────────────────────── */
+    .admin-body { max-width: 1080px; margin: 0 auto; padding: 2rem 1.5rem; }
+    .card { background: white; border-radius: 12px; padding: 1.75rem; box-shadow: var(--shadow); border: 1px solid rgba(168,196,207,0.2); }
+
+    /* ── ADMIN CALENDAR ────────────────────────────────── */
+    .acal-wrap { border: 1px solid var(--lake-light); border-radius: 10px; overflow: hidden; }
+    .acal-hdr { display: flex; align-items: center; justify-content: space-between; padding: 0.8rem 1rem; background: var(--pine-dark); }
+    .acal-nav { display: flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 8px; font-family: var(--font-b); font-size: 0.82rem; font-weight: 500; color: var(--snow); background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); cursor: pointer; transition: background 0.15s; }
+    .acal-nav:hover:not(:disabled) { background: rgba(255,255,255,0.2); }
+    .acal-nav:disabled { opacity: 0.3; cursor: not-allowed; }
+    .acal-names { display: grid; grid-template-columns: repeat(7,1fr); background: var(--cream); border-bottom: 1px solid var(--lake-light); }
+    .acal-dn { text-align: center; font-size: 0.66rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--stone); padding: 0.5rem 0; }
+    #acalDaysGrid { display: grid; grid-template-columns: repeat(7,1fr); }
+    .acal-day { aspect-ratio: 1; display: flex; align-items: center; justify-content: center; font-size: 0.88rem; position: relative; transition: background 0.12s; }
+    .acal-day.past { color: var(--lake-light); cursor: not-allowed; }
+    .acal-day.today { outline: 2px solid var(--sage-light); outline-offset: -2px; border-radius: 6px; font-weight: 600; }
+    .acal-day.avail { color: var(--charcoal); cursor: pointer; }
+    .acal-day.avail:hover { background: var(--snow); border-radius: 6px; }
+    .acal-day.avail::after { content: ''; position: absolute; bottom: 4px; width: 4px; height: 4px; border-radius: 50%; background: var(--sage); }
+    .acal-day.blocked { color: var(--red); cursor: pointer; background: var(--red-bg); border-radius: 6px; font-weight: 500; }
+    .acal-day.blocked:hover { background: rgba(192,57,43,0.15); }
+    .acal-day.blocked::after { content: ''; position: absolute; bottom: 4px; width: 4px; height: 4px; border-radius: 50%; background: var(--red); }
+    /* Job badge on calendar days */
+    .acal-day.has-job .job-badge {
+      position: absolute; top: 3px; right: 3px;
+      min-width: 14px; height: 14px; border-radius: 7px;
+      background: var(--pine-dark); color: var(--snow);
+      font-size: 0.58rem; font-weight: 700; line-height: 14px;
+      text-align: center; padding: 0 3px;
+      pointer-events: none;
+    }
+    .acal-legend { display: flex; gap: 1.25rem; padding: 0.55rem 1rem; background: var(--cream); border-top: 1px solid var(--lake-light); flex-wrap: wrap; }
+    .leg-item { display: flex; align-items: center; gap: 0.35rem; font-size: 0.7rem; color: var(--stone); }
+    .leg-dot { width: 7px; height: 7px; border-radius: 50%; }
+
+    /* ── TABLE ─────────────────────────────────────────── */
+    .data-table { width: 100%; border-collapse: collapse; }
+    .data-table th { text-align: left; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; color: var(--stone); padding: 0 1rem 0.75rem; border-bottom: 2px solid var(--lake-light); }
+    .data-table td { padding: 0.8rem 1rem; border-bottom: 1px solid rgba(168,196,207,0.2); font-size: 0.88rem; }
+    .data-table tr:last-child td { border-bottom: none; }
+
+    /* ── INPUTS ────────────────────────────────────────── */
+    .ai { padding: 7px 11px; border: 1.5px solid var(--lake-light); border-radius: 6px; font-family: var(--font-b); font-size: 0.88rem; color: var(--charcoal); outline: none; transition: border-color 0.2s; background: white; }
+    .ai:focus { border-color: var(--sage); }
+    .ai-sm { width: 72px; }
+    .ai-md { width: 180px; }
+
+    /* ── BUTTONS ───────────────────────────────────────── */
+    .btn { display: inline-flex; align-items: center; gap: 0.35rem; padding: 8px 16px; border-radius: 7px; font-family: var(--font-b); font-size: 0.83rem; font-weight: 500; cursor: pointer; border: none; transition: background 0.15s, transform 0.1s; }
+    .btn:active { transform: scale(0.98); }
+    .btn-dark  { background: var(--pine-dark); color: var(--snow); }
+    .btn-dark:hover  { background: var(--pine-mid); }
+    .btn-sage  { background: var(--sage); color: white; }
+    .btn-sage:hover  { background: var(--pine-mid); }
+    .btn-ghost { background: var(--snow); color: var(--stone); }
+    .btn-ghost:hover { background: var(--cream); }
+    .btn-red   { background: var(--red-bg); color: var(--red); }
+    .btn-red:hover   { background: rgba(192,57,43,0.18); }
+    .btn-link  { background: none; border: none; color: var(--stone); font-size: 0.82rem; cursor: pointer; padding: 4px 6px; border-radius: 4px; font-family: var(--font-b); }
+    .btn-link:hover { color: var(--charcoal); background: var(--snow); }
+
+    /* ── BLOCKED ITEM ──────────────────────────────────── */
+    .blocked-item { display: flex; align-items: center; justify-content: space-between; padding: 0.45rem 0.8rem; background: var(--red-bg); border: 1px solid rgba(192,57,43,0.18); border-radius: 6px; }
+
+    /* ── TOAST ─────────────────────────────────────────── */
+    .toast { position: fixed; bottom: 1.5rem; right: 1.5rem; background: var(--pine-dark); color: var(--snow); padding: 0.7rem 1.2rem; border-radius: 8px; font-size: 0.86rem; display: flex; align-items: center; gap: 0.5rem; box-shadow: 0 4px 20px rgba(0,0,0,0.2); transform: translateY(60px); opacity: 0; transition: transform 0.22s ease, opacity 0.22s ease; z-index: 999; pointer-events: none; }
+    .toast.show { transform: translateY(0); opacity: 1; }
+
+    /* ── BADGE ─────────────────────────────────────────── */
+    .badge { display: inline-flex; align-items: center; justify-content: center; min-width: 22px; height: 22px; border-radius: 11px; font-size: 0.7rem; font-weight: 600; padding: 0 6px; }
+    .badge-red  { background: var(--red-bg); color: var(--red); }
+    .badge-sage { background: rgba(107,143,94,0.15); color: var(--sage); }
+
+    /* ── MOBILE / iPHONE ───────────────────────────────── */
+    @media (max-width: 600px) {
+      /* Header: stack logo row + tabs row */
+      .admin-header {
+        height: auto;
+        flex-wrap: wrap;
+        padding: 0.5rem 0.75rem;
+        gap: 0.4rem;
+      }
+      .admin-header-logo  { order: 1; }
+      .admin-header-label { order: 2; margin-left: auto; }
+      .admin-header-btns  { order: 3; flex-shrink: 0; }
+      .admin-header-nav   { order: 4; flex: 0 0 100% !important; width: 100%; margin-left: 0 !important; }
+      .admin-header-nav nav { width: 100%; }
+      /* Compact "View Site" & "Log Out" on small screens */
+      .admin-header-btns .btn { font-size: 0.75rem; padding: 5px 9px; }
+
+      /* Body padding */
+      .admin-body { padding: 1rem 0.75rem; }
+
+      /* Calendar tab: single column */
+      .cal-tab-grid { grid-template-columns: 1fr !important; }
+
+      /* Settings tab: single column */
+      .settings-grid { grid-template-columns: 1fr !important; }
+
+      /* Add-fee form: stack inputs */
+      .add-fee-grid { grid-template-columns: 1fr 1fr !important; }
+
+      /* Pricing table: scrollable */
+      .pricing-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+      /* Jobs cards: single-column fields */
+      .job-fields-row { flex-direction: column !important; }
+
+      /* Fees table: scrollable */
+      .fees-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+      /* Table text smaller */
+      .data-table th, .data-table td { font-size: 0.8rem; padding: 0.6rem 0.75rem; }
+
+      /* Blocked dates sidebar: reasonable max-height */
+      #blockedList { max-height: 220px; }
+
+      /* Tab buttons: smaller text */
+      .tab-btn { font-size: 0.76rem; padding: 5px 10px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── LOGIN ──────────────────────────────────────────────── -->
+<div id="loginScreen">
+  <div class="login-card">
+    <div style="display:flex; align-items:center; justify-content:center; gap:0.6rem; margin:0 auto 1.5rem;">
+      <span style="width:44px; height:44px; border-radius:11px; background:var(--sage); display:flex; align-items:center; justify-content:center; flex-shrink:0; box-shadow:0 3px 12px rgba(107,143,94,0.35);">
+        <i class="ti ti-truck" style="color:white; font-size:21px;"></i>
+      </span>
+      <span style="line-height:1.2; text-align:left;">
+        <span style="display:block; font-family:var(--font-d); font-size:1.1rem; font-weight:700; color:var(--charcoal); letter-spacing:-0.01em;">Champlain</span>
+        <span style="display:block; font-family:var(--font-b); font-size:0.62rem; font-weight:600; color:var(--sage); letter-spacing:0.1em; text-transform:uppercase;">Junk Removal</span>
+      </span>
+    </div>
+    <h1 style="font-family:var(--font-d); font-size:1.5rem; font-weight:600; margin-bottom:0.3rem;">Admin Panel</h1>
+    <p style="color:var(--stone); font-size:0.87rem; margin-bottom:2rem;">Sign in to manage your site settings.</p>
+    <div style="text-align:left; margin-bottom:1rem;">
+      <label style="display:block; font-size:0.72rem; font-weight:600; text-transform:uppercase; letter-spacing:0.12em; color:var(--stone); margin-bottom:0.35rem;">Password</label>
+      <input type="password" id="pwInput" class="ai" style="width:100%;" placeholder="Enter admin password" onkeydown="if(event.key==='Enter')doLogin()">
+    </div>
+    <div id="loginErr" style="display:none; color:var(--red); font-size:0.82rem; margin-bottom:0.75rem; text-align:left;">Incorrect password. Try again.</div>
+    <button class="btn btn-dark" style="width:100%; justify-content:center; padding:12px;" onclick="doLogin()">Sign In</button>
+    <a href="index.html" style="display:block; margin-top:1.25rem; color:var(--stone); font-size:0.82rem; text-decoration:none; text-align:center; transition:color 0.2s;" onmouseover="this.style.color=getComputedStyle(document.documentElement).getPropertyValue('--charcoal')" onmouseout="this.style.color=getComputedStyle(document.documentElement).getPropertyValue('--stone')">← Back to site</a>
+  </div>
+</div>
+
+<!-- ── DASHBOARD ───────────────────────────────────────────── -->
+<div id="dashboard" style="display:none;">
+
+  <header class="admin-header">
+    <span class="admin-header-logo" style="display:inline-flex; align-items:center; gap:0.45rem; flex-shrink:0;">
+      <span style="width:28px; height:28px; border-radius:7px; background:var(--sage); display:flex; align-items:center; justify-content:center;">
+        <i class="ti ti-truck" style="color:white; font-size:13px;"></i>
+      </span>
+      <span style="font-family:var(--font-d); font-size:0.9rem; font-weight:700; color:var(--snow); letter-spacing:-0.01em;">Champlain</span>
+    </span>
+    <span class="admin-header-label" style="color:rgba(184,205,181,0.6); font-size:0.72rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; flex-shrink:0;">Admin</span>
+    <span class="admin-header-nav" style="display:flex; flex:1; min-width:0; margin-left:0.25rem;">
+      <nav style="display:flex; gap:2px; flex:1; overflow-x:auto; scrollbar-width:none;">
+        <button class="tab-btn active" id="tbtn-cal"      onclick="switchTab('cal')">📅 Calendar</button>
+        <button class="tab-btn"        id="tbtn-fees"     onclick="switchTab('fees')">💲 Fees</button>
+        <button class="tab-btn"        id="tbtn-pricing"  onclick="switchTab('pricing')">📊 Pricing</button>
+        <button class="tab-btn"        id="tbtn-jobs"     onclick="switchTab('jobs')">📋 Jobs <span id="jobsBadge" class="badge badge-sage" style="display:none;">0</span></button>
+        <button class="tab-btn"        id="tbtn-reviews"  onclick="switchTab('reviews')">⭐ Reviews <span id="reviewBadge" class="badge badge-sage" style="display:none;">0</span></button>
+        <button class="tab-btn"        id="tbtn-settings" onclick="switchTab('settings')">⚙️ Settings</button>
+      </nav>
+    </span>
+    <div class="admin-header-btns" style="display:flex; gap:0.5rem; flex-shrink:0;">
+      <a href="index.html" target="_blank" class="btn btn-ghost" style="font-size:0.8rem; padding:6px 12px; text-decoration:none;">View Site ↗</a>
+      <button class="btn btn-ghost" onclick="doLogout()" style="font-size:0.8rem; padding:6px 12px;">Log Out</button>
+    </div>
+  </header>
+
+  <!-- ── CALENDAR TAB ────────────────────────────────────── -->
+  <div id="tab-cal" class="admin-body">
+    <div style="margin-bottom:1.5rem;">
+      <h2 style="font-family:var(--font-d); font-size:1.4rem; font-weight:600; margin-bottom:0.2rem;">Calendar Management</h2>
+      <p style="color:var(--stone); font-size:0.88rem;">Click any future date to block or unblock it. Blocked dates show as unavailable on the quote form.</p>
+    </div>
+    <div class="cal-tab-grid" style="display:grid; grid-template-columns:1fr 300px; gap:1.5rem; align-items:start;">
+
+      <div class="acal-wrap">
+        <div class="acal-hdr">
+          <button class="acal-nav" id="acalPrev" onclick="acalPrev()">
+            <i class="ti ti-chevron-left" style="font-size:13px;"></i> Prev
+          </button>
+          <span id="acalLabel" style="font-family:var(--font-d); font-weight:600; color:var(--snow); font-size:1rem;"></span>
+          <button class="acal-nav" onclick="acalNext()">
+            Next <i class="ti ti-chevron-right" style="font-size:13px;"></i>
+          </button>
+        </div>
+        <div class="acal-names">
+          <div class="acal-dn">Sun</div><div class="acal-dn">Mon</div><div class="acal-dn">Tue</div>
+          <div class="acal-dn">Wed</div><div class="acal-dn">Thu</div><div class="acal-dn">Fri</div><div class="acal-dn">Sat</div>
+        </div>
+        <div id="acalDaysGrid"></div>
+        <div class="acal-legend">
+          <div class="leg-item"><div class="leg-dot" style="background:var(--sage);"></div> Available</div>
+          <div class="leg-item"><div class="leg-dot" style="background:var(--red);"></div> Blocked</div>
+          <div class="leg-item"><div class="leg-dot" style="background:var(--lake-light);"></div> Past / Closed</div>
+          <div class="leg-item">
+            <span style="min-width:14px;height:14px;border-radius:7px;background:var(--pine-dark);color:var(--snow);font-size:0.58rem;font-weight:700;line-height:14px;text-align:center;padding:0 3px;display:inline-block;">1</span>
+            &nbsp;Job(s) booked
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="card" style="margin-bottom:1rem;">
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1rem;">
+            <h3 style="font-size:0.95rem; font-weight:600;">Blocked Dates</h3>
+            <span id="blockedCount" class="badge badge-red">0</span>
+          </div>
+          <div id="blockedList" style="display:flex; flex-direction:column; gap:0.4rem; max-height:380px; overflow-y:auto;"></div>
+          <button class="btn btn-red" style="width:100%; justify-content:center; margin-top:1rem; font-size:0.8rem;" onclick="clearAllBlocked()">
+            <i class="ti ti-trash" style="font-size:13px;"></i> Clear All
+          </button>
+        </div>
+        <div class="card" style="background:var(--cream); padding:1rem 1.25rem;">
+          <p style="font-size:0.8rem; color:var(--stone); line-height:1.6;">
+            <strong style="color:var(--charcoal);">Auto-save:</strong> Changes take effect on the quote form immediately — no need to publish.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── FEES TAB ────────────────────────────────────────── -->
+  <div id="tab-fees" class="admin-body" style="display:none;">
+    <div style="display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:1.5rem;">
+      <div>
+        <h2 style="font-family:var(--font-d); font-size:1.4rem; font-weight:600; margin-bottom:0.2rem;">Disposal Fees</h2>
+        <p style="color:var(--stone); font-size:0.88rem;">Edit prices, names, or add new items. Click Save when done.</p>
+      </div>
+      <button class="btn btn-sage" onclick="toggleAddFee(true)"><i class="ti ti-plus" style="font-size:14px;"></i> Add Item</button>
+    </div>
+
+    <div id="addFeeRow" class="card" style="display:none; margin-bottom:1rem; background:var(--cream);">
+      <h4 style="font-size:0.9rem; font-weight:600; margin-bottom:0.9rem;">New Fee Item</h4>
+      <div class="add-fee-grid" style="display:grid; grid-template-columns:1fr 120px 90px auto auto; gap:0.75rem; align-items:end;">
+        <div>
+          <label style="display:block; font-size:0.7rem; font-weight:600; text-transform:uppercase; letter-spacing:0.1em; color:var(--stone); margin-bottom:0.3rem;">Item Name</label>
+          <input type="text" id="newFeeN" class="ai" style="width:100%;" placeholder="e.g. Hot Tub">
+        </div>
+        <div>
+          <label style="display:block; font-size:0.7rem; font-weight:600; text-transform:uppercase; letter-spacing:0.1em; color:var(--stone); margin-bottom:0.3rem;">Unit</label>
+          <input type="text" id="newFeeU" class="ai" style="width:100%;" placeholder="ea.">
+        </div>
+        <div>
+          <label style="display:block; font-size:0.7rem; font-weight:600; text-transform:uppercase; letter-spacing:0.1em; color:var(--stone); margin-bottom:0.3rem;">Fee ($)</label>
+          <input type="number" id="newFeeF" class="ai ai-sm" placeholder="50" min="0" style="width:100%;">
+        </div>
+        <button class="btn btn-dark" onclick="addFeeItem()">Add</button>
+        <button class="btn btn-ghost" onclick="toggleAddFee(false)">Cancel</button>
+      </div>
+    </div>
+
+    <div class="card fees-table-wrap" style="padding:0; overflow:hidden; margin-bottom:1rem;">
+      <table class="data-table" style="min-width:400px;">
+        <thead><tr>
+          <th style="padding-left:1.5rem; width:40%;">Item</th>
+          <th>Unit</th>
+          <th>Fee</th>
+          <th style="text-align:right; padding-right:1.5rem;">Remove</th>
+        </tr></thead>
+        <tbody id="feesBody"></tbody>
+      </table>
+    </div>
+    <div style="text-align:right;">
+      <button class="btn btn-dark" onclick="saveFees()"><i class="ti ti-device-floppy" style="font-size:14px;"></i> Save Changes</button>
+    </div>
+  </div>
+
+  <!-- ── PRICING TAB ──────────────────────────────────────── -->
+  <div id="tab-pricing" class="admin-body" style="display:none;">
+    <div style="margin-bottom:1.5rem;">
+      <h2 style="font-family:var(--font-d); font-size:1.4rem; font-weight:600; margin-bottom:0.2rem;">Pricing Tiers</h2>
+      <p style="color:var(--stone); font-size:0.88rem;">Min and max estimate ranges shown on the quote form, in USD.</p>
+    </div>
+    <div class="card pricing-table-wrap" style="padding:0; overflow:hidden; margin-bottom:1rem;">
+      <table style="width:100%; min-width:560px; border-collapse:collapse;">
+        <thead><tr style="background:var(--cream);">
+          <th style="text-align:left; padding:0.85rem 1.5rem; font-size:0.7rem; font-weight:600; text-transform:uppercase; letter-spacing:0.1em; color:var(--stone); border-bottom:1px solid var(--lake-light);">Service</th>
+          <th style="text-align:center; padding:0.85rem 0.75rem; font-size:0.7rem; font-weight:600; text-transform:uppercase; letter-spacing:0.1em; color:var(--stone); border-bottom:1px solid var(--lake-light);" title="Your estimated cost for this type of job">Est. Cost</th>
+          <th style="text-align:center; padding:0.85rem 0.75rem; font-size:0.7rem; font-weight:600; text-transform:uppercase; letter-spacing:0.1em; color:var(--stone); border-bottom:1px solid var(--lake-light);">1–3 cu yd</th>
+          <th style="text-align:center; padding:0.85rem 0.75rem; font-size:0.7rem; font-weight:600; text-transform:uppercase; letter-spacing:0.1em; color:var(--stone); border-bottom:1px solid var(--lake-light);">4–7 cu yd</th>
+          <th style="text-align:center; padding:0.85rem 1.5rem 0.85rem 0.75rem; font-size:0.7rem; font-weight:600; text-transform:uppercase; letter-spacing:0.1em; color:var(--stone); border-bottom:1px solid var(--lake-light);">8–12 cu yd</th>
+        </tr></thead>
+        <tbody id="pricingBody"></tbody>
+      </table>
+    </div>
+    <div style="text-align:right;">
+      <button class="btn btn-dark" onclick="savePricing()"><i class="ti ti-device-floppy" style="font-size:14px;"></i> Save Pricing</button>
+    </div>
+  </div>
+
+  <!-- ── JOBS TAB ──────────────────────────────────────────── -->
+  <div id="tab-jobs" class="admin-body" style="display:none;">
+    <div style="margin-bottom:1.5rem;">
+      <h2 style="font-family:var(--font-d); font-size:1.4rem; font-weight:600; margin-bottom:0.2rem;">Quote Requests & Jobs</h2>
+      <p style="color:var(--stone); font-size:0.88rem;">Incoming requests from the contact form. Enter distance from your address and your actual job cost to calculate profit margin. <strong style="color:var(--charcoal);">20%+ margin</strong> is highlighted in green.</p>
+    </div>
+    <div id="adminJobsList"></div>
+  </div>
+
+  <!-- ── REVIEWS TAB ──────────────────────────────────────── -->
+  <div id="tab-reviews" class="admin-body" style="display:none;">
+    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1.5rem; flex-wrap:wrap; gap:1rem;">
+      <div>
+        <h2 style="font-family:var(--font-d); font-size:1.4rem; font-weight:600; margin-bottom:0.2rem;">Customer Reviews</h2>
+        <p style="color:var(--stone); font-size:0.88rem;">Reviews submitted by customers on the homepage.</p>
+      </div>
+      <button onclick="clearAllReviews()" style="padding:8px 16px; background:var(--red-bg); color:var(--red); border:1px solid rgba(192,57,43,0.25); border-radius:8px; font-family:var(--font-b); font-size:0.82rem; cursor:pointer;">Clear All</button>
+    </div>
+    <div id="adminReviewsList"></div>
+  </div>
+
+  <!-- ── SETTINGS TAB ─────────────────────────────────────── -->
+  <div id="tab-settings" class="admin-body" style="display:none;">
+    <div style="margin-bottom:1.5rem;">
+      <h2 style="font-family:var(--font-d); font-size:1.4rem; font-weight:600; margin-bottom:0.2rem;">Site Settings</h2>
+      <p style="color:var(--stone); font-size:0.88rem;">Configure pickup availability and admin access.</p>
+    </div>
+    <div class="settings-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:1.5rem;">
+
+      <div class="card">
+        <h3 style="font-size:0.95rem; font-weight:600; margin-bottom:0.25rem;">Available Pickup Days</h3>
+        <p style="font-size:0.82rem; color:var(--stone); margin-bottom:1.25rem;">Unchecked days appear unavailable on the quote form calendar.</p>
+        <div id="dayToggles" style="display:flex; flex-direction:column; gap:0.5rem;"></div>
+        <button class="btn btn-dark" onclick="saveDays()" style="margin-top:1.25rem;"><i class="ti ti-device-floppy" style="font-size:14px;"></i> Save Days</button>
+      </div>
+
+      <div class="card">
+        <h3 style="font-size:0.95rem; font-weight:600; margin-bottom:0.25rem;">Change Password</h3>
+        <p style="font-size:0.82rem; color:var(--stone); margin-bottom:1.25rem;">Default: <code style="background:var(--cream); padding:1px 6px; border-radius:4px;">champlain2024</code></p>
+        <div style="display:flex; flex-direction:column; gap:0.75rem;">
+          <div>
+            <label style="display:block; font-size:0.7rem; font-weight:600; text-transform:uppercase; letter-spacing:0.1em; color:var(--stone); margin-bottom:0.3rem;">New Password</label>
+            <input type="password" id="pwNew" class="ai" style="width:100%;" placeholder="New password">
+          </div>
+          <div>
+            <label style="display:block; font-size:0.7rem; font-weight:600; text-transform:uppercase; letter-spacing:0.1em; color:var(--stone); margin-bottom:0.3rem;">Confirm</label>
+            <input type="password" id="pwConfirm" class="ai" style="width:100%;" placeholder="Confirm new password">
+          </div>
+          <div id="pwMsg" style="display:none; font-size:0.82rem;"></div>
+          <button class="btn btn-dark" onclick="changePw()"><i class="ti ti-lock" style="font-size:14px;"></i> Update Password</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div><!-- /dashboard -->
+
+<div id="toast" class="toast"><i class="ti ti-circle-check" style="font-size:15px; color:var(--sage-light);"></i><span id="toastMsg"></span></div>
+
+<script>
+  /* ── DEFAULTS ─────────────────────────────────────────── */
+  const DEF_FEES = [
+    {id:'mattress',   name:'Mattress',         unit:'ea.',        fee:25, icon:'ti-bed'},
+    {id:'box-spring', name:'Box Spring',        unit:'ea.',        fee:15, icon:'ti-layout-rows'},
+    {id:'tv',         name:'TV / Monitor',      unit:'ea.',        fee:20, icon:'ti-device-tv'},
+    {id:'ac',         name:'Air Conditioner',   unit:'ea.',        fee:35, icon:'ti-wind'},
+    {id:'tires',      name:'Tires',             unit:'ea.',        fee:12, icon:'ti-circle'},
+    {id:'paint',      name:'Paint / Chemicals', unit:'/ container',fee:15, icon:'ti-droplet'},
+    {id:'propane',    name:'Propane Tank',      unit:'ea.',        fee:20, icon:'ti-flame'},
+    {id:'fluorescent',name:'Fluorescent Bulbs', unit:'/ bag',      fee:8,  icon:'ti-bulb'},
+  ];
+  const DEF_PRICING = {
+    outdoor:       {label:'Outdoor / Curbside',       small:[95,165],   medium:[165,285],  large:[285,425]},
+    indoor_ground: {label:'Indoor — Ground Floor',    small:[119,189],  medium:[215,355],  large:[380,570]},
+    indoor_stairs: {label:'Indoor — Stairs / Tight',  small:[165,260],  medium:[285,425],  large:[475,710]},
+    fullcleanout:  {label:'Full Property Cleanout',   small:[475,760],  medium:[855,1235], large:[1235,1900]},
+  };
+  const DEF_DAYS = [1,2,3,4,5,6];
+  const DEF_PW   = 'champlain2024';
+  const MN = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const DN = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+
+  /* ── STORAGE ──────────────────────────────────────────── */
+  const ls = {
+    get:(k,d)=>{ try{const v=localStorage.getItem(k); return v?JSON.parse(v):d;}catch{return d;} },
+    set:(k,v)=>localStorage.setItem(k,JSON.stringify(v)),
+  };
+
+  /* ── AUTH ─────────────────────────────────────────────── */
+  function doLogin() {
+    const pw = document.getElementById('pwInput').value;
+    if (pw === ls.get('cjr_pw', DEF_PW)) {
+      ls.set('cjr_auth', true);
+      show('dashboard'); hide('loginScreen');
+      initAdmin();
+    } else {
+      document.getElementById('loginErr').style.display = 'block';
+      document.getElementById('pwInput').value = '';
+    }
+  }
+  function doLogout() { ls.set('cjr_auth', false); hide('dashboard'); show('loginScreen'); document.getElementById('pwInput').value=''; }
+  function show(id){document.getElementById(id).style.display='block';}
+  function hide(id){document.getElementById(id).style.display='none';}
+
+  window.addEventListener('DOMContentLoaded', () => {
+    if (ls.get('cjr_auth', false)) { show('dashboard'); hide('loginScreen'); initAdmin(); }
+  });
+
+  /* ── TABS ─────────────────────────────────────────────── */
+  const TABS = ['cal','fees','pricing','jobs','reviews','settings'];
+  function switchTab(t) {
+    TABS.forEach(x => {
+      document.getElementById('tab-'+x).style.display = x===t?'block':'none';
+      document.getElementById('tbtn-'+x).classList.toggle('active', x===t);
+    });
+    if (t === 'reviews') renderAdminReviews();
+    if (t === 'jobs') renderAdminJobs();
+  }
+
+  /* ── REVIEWS ──────────────────────────────────────────── */
+  function getReviews() { try { return JSON.parse(localStorage.getItem('cjr_reviews') || '[]'); } catch { return []; } }
+  function saveAdminReviews(arr) { localStorage.setItem('cjr_reviews', JSON.stringify(arr)); }
+
+  function renderAdminReviews() {
+    const reviews = getReviews();
+    const badge = document.getElementById('reviewBadge');
+    badge.textContent = reviews.length;
+    badge.style.display = reviews.length ? 'inline-block' : 'none';
+    const el = document.getElementById('adminReviewsList');
+    if (!reviews.length) {
+      el.innerHTML = '<p style="color:var(--stone); font-size:0.9rem; text-align:center; padding:2rem 0;">No reviews yet.</p>';
+      return;
+    }
+    el.innerHTML = reviews.map((r, i) => {
+      const stars = '★'.repeat(r.rating) + '☆'.repeat(5 - r.rating);
+      const date = new Date(r.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+      return `<div style="background:white; border-radius:10px; padding:1.25rem 1.5rem; border:1px solid rgba(168,196,207,0.2); margin-bottom:0.75rem; display:flex; align-items:flex-start; gap:1rem;">
+        <div style="flex:1; min-width:0;">
+          <div style="display:flex; align-items:center; gap:0.75rem; margin-bottom:0.4rem; flex-wrap:wrap;">
+            <span style="font-weight:600; font-size:0.92rem; color:var(--charcoal);">${r.name}</span>
+            ${r.town ? `<span style="font-size:0.78rem; color:var(--stone);">${r.town}</span>` : ''}
+            <span style="color:#E8A020; font-size:0.9rem;">${stars}</span>
+            <span style="font-size:0.75rem; color:var(--stone); margin-left:auto;">${date}</span>
+          </div>
+          <p style="color:var(--stone); font-size:0.87rem; line-height:1.65; margin:0;">"${r.message}"</p>
+        </div>
+        <button onclick="deleteReview(${i})" style="background:none; border:none; cursor:pointer; color:var(--stone); font-size:18px; padding:0 2px; flex-shrink:0; line-height:1;" title="Delete review">×</button>
+      </div>`;
+    }).join('');
+  }
+
+  function deleteReview(i) {
+    const reviews = getReviews();
+    reviews.splice(i, 1);
+    saveAdminReviews(reviews);
+    renderAdminReviews();
+  }
+
+  function clearAllReviews() {
+    if (!confirm('Delete all customer reviews?')) return;
+    saveAdminReviews([]);
+    renderAdminReviews();
+  }
+
+  /* ── JOBS ─────────────────────────────────────────────── */
+  function getJobs(){ try{ return JSON.parse(localStorage.getItem('cjr_jobs')||'[]'); }catch{ return []; } }
+  function saveJobs(arr){ localStorage.setItem('cjr_jobs', JSON.stringify(arr)); }
+
+  function updateJobsBadge(){
+    const pending = getJobs().filter(j => !j.done).length;
+    const badge = document.getElementById('jobsBadge');
+    if (!badge) return;
+    badge.textContent = pending;
+    badge.style.display = pending ? 'inline-flex' : 'none';
+  }
+
+  function renderAdminJobs(){
+    updateJobsBadge();
+    const jobs = getJobs();
+    const el = document.getElementById('adminJobsList');
+    if (!el) return;
+    const SVC_LABELS = { outdoor:'Outdoor/Curbside', indoor_ground:'Indoor – Ground', indoor_stairs:'Indoor – Stairs', fullcleanout:'Full Cleanout' };
+    const SIZE_LABELS = { small:'1–3 cu yd', medium:'4–7 cu yd', large:'8–12 cu yd' };
+    if (!jobs.length) {
+      el.innerHTML = '<div class="card" style="text-align:center;padding:3rem;"><p style="color:var(--stone);font-size:0.9rem;">No quote requests yet. They appear here when customers submit the contact form.</p></div>';
+      return;
+    }
+    el.innerHTML = jobs.map((j, i) => {
+      const submDate = new Date(j.submitted).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+      const quotedRange = j.quotedLow != null ? `$${j.quotedLow.toLocaleString()}–$${j.quotedHigh.toLocaleString()}` : '—';
+      const quotedMid = j.quotedLow != null && j.quotedHigh != null ? (j.quotedLow + j.quotedHigh) / 2 : null;
+      const cost = parseFloat(j.cost);
+      let marginHTML = '';
+      if (!isNaN(cost) && cost > 0 && quotedMid) {
+        const m = Math.round((quotedMid - cost) / quotedMid * 100);
+        const ok = m >= 20;
+        marginHTML = `<span id="jmg-${i}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:20px;background:${ok?'rgba(107,143,94,0.1)':'var(--red-bg)'};color:${ok?'var(--sage)':'var(--red)'};font-size:0.78rem;font-weight:600;">${ok?'✓':'⚠'} ${m}% margin</span>`;
+      } else {
+        marginHTML = `<span id="jmg-${i}" style="display:none;"></span>`;
+      }
+      const pickupStr = j.preferredDate ? new Date(j.preferredDate).toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'})+(j.preferredTime?' · '+j.preferredTime:'') : '';
+
+      // Build Gmail compose URL
+      const svcLabel = SVC_LABELS[j.svc]||j.svc||'';
+      const sizeLabel = SIZE_LABELS[j.size]||j.size||'';
+      const gmailSubject = encodeURIComponent(`Your Champlain Junk Removal Quote`);
+      const pickupLine = pickupStr ? `\nPreferred pickup: ${pickupStr}` : '';
+      const descLine = j.description ? `\nJob details: "${j.description}"` : '';
+      const gmailBody = encodeURIComponent(
+        `Hi ${j.name},\n\nThank you for requesting a quote from Champlain Junk Removal!\n\nHere's a summary of your request:\n• Service: ${svcLabel}\n• Load size: ${sizeLabel}\n• Estimated range: ${j.quotedLow!=null?`$${j.quotedLow.toLocaleString()} – $${j.quotedHigh.toLocaleString()}`:'TBD'}${pickupLine}${descLine}\n\nWe'd love to get you scheduled. Please reply to confirm or if you have any questions.\n\nBest,\nChamplain Junk Removal\nhelp@champlainjunkremoval.com`
+      );
+      const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(j.email)}&su=${gmailSubject}&body=${gmailBody}`;
+
+      return `<div style="background:${j.done?'var(--cream)':'white'};border-radius:10px;padding:1.25rem 1.5rem;border:1px solid rgba(168,196,207,0.25);margin-bottom:0.75rem;${j.done?'opacity:0.65;':''}">
+        <div style="display:flex;align-items:flex-start;gap:1.25rem;flex-wrap:wrap;">
+          <div style="flex:1;min-width:220px;">
+            <div style="display:flex;align-items:center;gap:0.6rem;margin-bottom:0.3rem;flex-wrap:wrap;">
+              <span style="font-weight:600;font-size:0.95rem;color:var(--charcoal);">${j.name}</span>
+              ${j.done?'<span style="font-size:0.72rem;color:var(--stone);background:var(--snow);border:1px solid var(--lake-light);padding:1px 8px;border-radius:20px;">Done</span>':''}
+              <span style="font-size:0.78rem;color:var(--stone);margin-left:auto;white-space:nowrap;">Submitted ${submDate}</span>
+            </div>
+            <div style="font-size:0.82rem;color:var(--stone);margin-bottom:0.65rem;">${j.email}${j.town?' · '+j.town:''}</div>
+            <div style="display:flex;gap:0.4rem;flex-wrap:wrap;font-size:0.8rem;">
+              <span style="background:var(--snow);padding:2px 8px;border-radius:20px;color:var(--charcoal);">${SVC_LABELS[j.svc]||j.svc||'—'}</span>
+              ${j.size?`<span style="background:var(--snow);padding:2px 8px;border-radius:20px;color:var(--charcoal);">${SIZE_LABELS[j.size]||j.size}</span>`:''}
+              ${j.quotedLow!=null?`<span style="background:rgba(107,143,94,0.1);padding:2px 8px;border-radius:20px;color:var(--sage);font-weight:500;">${quotedRange} quoted</span>`:''}
+              ${pickupStr?`<span style="background:var(--snow);padding:2px 8px;border-radius:20px;color:var(--charcoal);">📅 ${pickupStr}</span>`:''}
+            </div>
+            ${j.description?`<div style="font-size:0.8rem;color:var(--stone);margin-top:0.5rem;line-height:1.5;font-style:italic;">"${j.description}"</div>`:''}
+          </div>
+          <div style="display:flex;flex-direction:column;gap:0.6rem;min-width:180px;flex-shrink:0;">
+            <div style="display:flex;gap:0.75rem;flex-wrap:wrap;">
+              <div>
+                <label style="display:block;font-size:0.68rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--stone);margin-bottom:0.25rem;">Distance from home
+                  ${j.town?`<a href="https://www.google.com/maps/dir/457+S+Middlebrook+Rd+Vergennes+VT/${encodeURIComponent(j.town+' VT')}" target="_blank" style="color:var(--lake);font-size:0.68rem;font-weight:500;text-transform:none;letter-spacing:0;margin-left:4px;">↗ Maps</a>`:''}
+                </label>
+                <div style="display:flex;align-items:center;gap:4px;">
+                  <input type="number" value="${j.distance||''}" class="ai" style="width:64px;" placeholder="0" min="0"
+                    onchange="updateJobField(${i},'distance',this.value)">
+                  <span style="font-size:0.8rem;color:var(--stone);">mi</span>
+                </div>
+              </div>
+              <div>
+                <label style="display:block;font-size:0.68rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--stone);margin-bottom:0.25rem;">Your Cost</label>
+                <div style="display:flex;align-items:center;gap:4px;">
+                  <span style="font-size:0.8rem;color:var(--stone);">$</span>
+                  <input type="number" value="${j.cost||''}" class="ai" style="width:76px;" placeholder="0" min="0"
+                    onchange="updateJobField(${i},'cost',this.value)">
+                </div>
+              </div>
+            </div>
+            <div>${marginHTML}</div>
+            <div style="display:flex;gap:0.5rem;flex-wrap:wrap;align-items:center;">
+              <button onclick="toggleJobDone(${i})" style="padding:5px 12px;background:${j.done?'var(--snow)':'rgba(107,143,94,0.1)'};color:${j.done?'var(--stone)':'var(--sage)'};border:1px solid ${j.done?'var(--lake-light)':'rgba(107,143,94,0.3)'};border-radius:6px;font-size:0.78rem;cursor:pointer;font-family:var(--font-b);">${j.done?'Mark Pending':'✓ Mark Done'}</button>
+              <a href="${gmailUrl}" target="_blank" style="display:inline-flex;align-items:center;gap:4px;padding:5px 12px;background:rgba(66,133,244,0.1);color:#4285F4;border:1px solid rgba(66,133,244,0.3);border-radius:6px;font-size:0.78rem;font-family:var(--font-b);text-decoration:none;white-space:nowrap;" title="Open Gmail compose to ${j.email}">
+                <i class="ti ti-brand-gmail" style="font-size:13px;"></i> Email
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  function updateJobField(i, field, val){
+    const jobs = getJobs();
+    if (!jobs[i]) return;
+    jobs[i][field] = val;
+    saveJobs(jobs);
+    if (field === 'cost') {
+      const j = jobs[i];
+      const cost = parseFloat(val);
+      const quotedMid = j.quotedLow != null && j.quotedHigh != null ? (j.quotedLow + j.quotedHigh) / 2 : null;
+      const el = document.getElementById(`jmg-${i}`);
+      if (el) {
+        if (!isNaN(cost) && cost > 0 && quotedMid) {
+          const m = Math.round((quotedMid - cost) / quotedMid * 100);
+          const ok = m >= 20;
+          el.style.display = 'inline-flex';
+          el.style.background = ok ? 'rgba(107,143,94,0.1)' : 'var(--red-bg)';
+          el.style.color = ok ? 'var(--sage)' : 'var(--red)';
+          el.textContent = (ok ? '✓ ' : '⚠ ') + m + '% margin';
+        } else {
+          el.style.display = 'none';
+        }
+      }
+    }
+    updateJobsBadge();
+  }
+
+  function toggleJobDone(i){
+    const jobs = getJobs();
+    if (!jobs[i]) return;
+    jobs[i].done = !jobs[i].done;
+    saveJobs(jobs);
+    renderAdminJobs();
+    showToast(jobs[i].done ? 'Marked as done' : 'Marked as pending');
+  }
+
+  /* ── INIT ─────────────────────────────────────────────── */
+  function initAdmin() { renderCal(); renderBlockedList(); renderFees(); renderPricing(); renderDays(); renderAdminReviews(); updateJobsBadge(); }
+
+  /* ── CALENDAR ─────────────────────────────────────────── */
+  const NOW = new Date(); NOW.setHours(0,0,0,0);
+  let cy = NOW.getFullYear(), cm = NOW.getMonth();
+
+  function getBlocked()  { return new Set(ls.get('cjr_booked_dates',[])); }
+  function saveBlocked(s){ ls.set('cjr_booked_dates',[...s]); }
+  function getAvailDays(){ return ls.get('cjr_available_days', DEF_DAYS); }
+
+  function renderCal() {
+    document.getElementById('acalLabel').textContent = `${MN[cm]} ${cy}`;
+    document.getElementById('acalPrev').disabled = (cy===NOW.getFullYear() && cm===NOW.getMonth());
+
+    // Build job-count map: key → count of pending jobs on that date
+    const jobDates = {};
+    getJobs().filter(j => !j.done && j.preferredDate).forEach(j => {
+      const d = new Date(j.preferredDate);
+      const k = `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
+      jobDates[k] = (jobDates[k] || 0) + 1;
+    });
+
+    const blocked   = getBlocked();
+    const availDays = getAvailDays();
+    const firstDow  = new Date(cy,cm,1).getDay();
+    const dim       = new Date(cy,cm+1,0).getDate();
+    const grid      = document.getElementById('acalDaysGrid');
+    grid.innerHTML  = '';
+
+    for(let i=0;i<firstDow;i++){
+      const e=document.createElement('div'); e.className='acal-day'; grid.appendChild(e);
+    }
+    for(let d=1;d<=dim;d++){
+      const date=new Date(cy,cm,d); date.setHours(0,0,0,0);
+      const key=`${cy}-${cm}-${d}`, dow=date.getDay();
+      const isPast=date<NOW, isToday=date.getTime()===NOW.getTime();
+      const isBlocked=blocked.has(key), isClosed=!availDays.includes(dow);
+      const jobCount=jobDates[key]||0;
+
+      const cell=document.createElement('div');
+      cell.className='acal-day';
+      // Number text node first, then optional badge
+      cell.appendChild(document.createTextNode(d));
+      if(isToday) cell.classList.add('today');
+
+      if(isPast||isClosed){
+        cell.classList.add('past');
+      } else if(isBlocked){
+        cell.classList.add('blocked');
+        cell.title=jobCount?`Click to unblock · ${jobCount} job(s) on this day`:'Click to unblock';
+        cell.addEventListener('click',()=>toggleDate(key));
+      } else {
+        cell.classList.add('avail');
+        cell.title=jobCount?`${jobCount} job(s) on this day · click to block`:'Click to block';
+        cell.addEventListener('click',()=>toggleDate(key));
+      }
+
+      if(jobCount){
+        cell.classList.add('has-job');
+        const badge=document.createElement('span');
+        badge.className='job-badge';
+        badge.textContent=jobCount;
+        cell.appendChild(badge);
+      }
+
+      grid.appendChild(cell);
+    }
+  }
+
+  function toggleDate(key){
+    const b=getBlocked();
+    b.has(key)?b.delete(key):b.add(key);
+    saveBlocked(b); renderCal(); renderBlockedList();
+    showToast('Calendar updated');
+  }
+
+  function acalPrev(){cm--;if(cm<0){cm=11;cy--;}renderCal();}
+  function acalNext(){cm++;if(cm>11){cm=0;cy++;}renderCal();}
+
+  function renderBlockedList(){
+    const blocked=[...getBlocked()].sort();
+    document.getElementById('blockedCount').textContent=blocked.length;
+    const list=document.getElementById('blockedList');
+    if(!blocked.length){
+      list.innerHTML='<p style="color:var(--stone);font-size:0.83rem;text-align:center;padding:0.75rem 0;">No dates blocked.</p>';
+      return;
+    }
+    list.innerHTML=blocked.map(k=>{
+      const p=k.split('-');
+      const date=new Date(parseInt(p[0]),parseInt(p[1]),parseInt(p[2]));
+      const label=date.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric',year:'numeric'});
+      return `<div class="blocked-item">
+        <span style="font-size:0.83rem;">${label}</span>
+        <button onclick="toggleDate('${k}')" style="background:none;border:none;cursor:pointer;color:var(--red);font-size:18px;line-height:1;padding:0 2px;" title="Unblock">×</button>
+      </div>`;
+    }).join('');
+  }
+
+  function clearAllBlocked(){
+    if(!confirm('Clear all blocked dates?'))return;
+    saveBlocked(new Set()); renderCal(); renderBlockedList(); showToast('All dates cleared');
+  }
+
+  /* ── FEES ─────────────────────────────────────────────── */
+  let fees = ls.get('cjr_fee_items', DEF_FEES);
+
+  function renderFees(){
+    document.getElementById('feesBody').innerHTML = fees.map((f,i)=>`
+      <tr>
+        <td style="padding-left:1.5rem;">
+          <div style="display:flex;align-items:center;gap:0.6rem;">
+            <div style="width:30px;height:30px;background:var(--snow);border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+              <i class="ti ${f.icon}" style="font-size:15px;color:var(--sage);"></i>
+            </div>
+            <input type="text" value="${f.name}" class="ai ai-md" onchange="fees[${i}].name=this.value">
+          </div>
+        </td>
+        <td><input type="text" value="${f.unit}" class="ai" style="width:72px;" placeholder="ea." onchange="fees[${i}].unit=this.value"></td>
+        <td>
+          <div style="display:flex;align-items:center;gap:3px;">
+            <span style="color:var(--stone);font-size:0.82rem;">$</span>
+            <input type="number" value="${f.fee}" class="ai ai-sm" min="0" onchange="fees[${i}].fee=parseInt(this.value)||0">
+          </div>
+        </td>
+        <td style="text-align:right;padding-right:1.5rem;">
+          <button class="btn btn-red" onclick="deleteFee(${i})" style="padding:5px 10px;font-size:0.78rem;">
+            <i class="ti ti-trash" style="font-size:12px;"></i> Remove
+          </button>
+        </td>
+      </tr>
+    `).join('');
+  }
+
+  function deleteFee(i){ fees.splice(i,1); renderFees(); }
+  function saveFees(){ ls.set('cjr_fee_items',fees); showToast('Disposal fees saved'); }
+  function toggleAddFee(show){ document.getElementById('addFeeRow').style.display=show?'block':'none'; }
+  function addFeeItem(){
+    const n=document.getElementById('newFeeN').value.trim();
+    const u=document.getElementById('newFeeU').value.trim();
+    const f=parseInt(document.getElementById('newFeeF').value,10);
+    if(!n||isNaN(f)){alert('Enter a name and fee.');return;}
+    const id=n.toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'');
+    fees.push({id,name:n,unit:u,fee:f,icon:'ti-circle'});
+    ls.set('cjr_fee_items',fees);
+    renderFees(); toggleAddFee(false);
+    document.getElementById('newFeeN').value='';
+    document.getElementById('newFeeU').value='';
+    document.getElementById('newFeeF').value='';
+    showToast(`"${n}" added`);
+  }
+
+  /* ── PRICING ──────────────────────────────────────────── */
+  function getPricing(){
+    const stored = ls.get('cjr_pricing', null);
+    if (stored && Object.keys(DEF_PRICING).every(k => k in stored)) return stored;
+    return DEF_PRICING;
+  }
+  function getCosts(){
+    const def = { outdoor:0, indoor_ground:0, indoor_stairs:0, fullcleanout:0 };
+    const stored = ls.get('cjr_costs', null);
+    if (stored && Object.keys(def).every(k => k in stored)) return stored;
+    return def;
+  }
+  function updateCost(key, val){
+    const costs = getCosts();
+    costs[key] = parseInt(val, 10) || 0;
+    ls.set('cjr_costs', costs);
+    const cost = costs[key];
+    const p = getPricing();
+    ['small','medium','large'].forEach(sz => {
+      const el = document.getElementById(`mg-${key}-${sz}`);
+      if (!el) return;
+      if (cost > 0 && p[key]) {
+        const minP = p[key][sz][0];
+        const m = Math.round((minP - cost) / minP * 100);
+        el.textContent = m + '% margin';
+        el.style.color = m >= 20 ? 'var(--sage)' : 'var(--red)';
+        el.style.display = 'block';
+      } else {
+        el.style.display = 'none';
+      }
+    });
+  }
+  function renderPricing(){
+    const p = getPricing();
+    const costs = getCosts();
+    document.getElementById('pricingBody').innerHTML = Object.entries(p).map(([key, svc]) => {
+      const cost = costs[key] || 0;
+      return `<tr style="border-bottom:1px solid rgba(168,196,207,0.2);">
+        <td style="padding:0.8rem 1.5rem;font-size:0.88rem;font-weight:500;">${svc.label}</td>
+        <td style="padding:0.5rem 0.75rem;text-align:center;">
+          <div style="display:flex;align-items:center;justify-content:center;gap:3px;">
+            <span style="color:var(--stone);font-size:0.78rem;">$</span>
+            <input type="number" value="${cost || ''}" class="ai ai-sm" min="0" placeholder="—"
+              oninput="updateCost('${key}', this.value)" title="Your estimated cost for this service type">
+          </div>
+        </td>
+        ${['small','medium','large'].map(sz => {
+          const [minP, maxP] = svc[sz];
+          const m = cost > 0 ? Math.round((minP - cost) / minP * 100) : null;
+          return `<td style="padding:0.5rem 0.75rem;text-align:center;">
+            <div style="display:flex;align-items:center;justify-content:center;gap:3px;">
+              <span style="color:var(--stone);font-size:0.78rem;">$</span>
+              <input type="number" value="${minP}" class="ai ai-sm" min="0"
+                onchange="updateP('${key}','${sz}',0,this.value)" title="Min estimate">
+              <span style="color:var(--stone);font-size:0.78rem;">–$</span>
+              <input type="number" value="${maxP}" class="ai ai-sm" min="0"
+                onchange="updateP('${key}','${sz}',1,this.value)" title="Max estimate">
+            </div>
+            <div id="mg-${key}-${sz}" style="font-size:0.7rem;font-weight:600;margin-top:3px;display:${m !== null ? 'block' : 'none'};color:${m !== null ? (m >= 20 ? 'var(--sage)' : 'var(--red)') : 'var(--stone)'};">${m !== null ? m + '% margin' : ''}</div>
+          </td>`;
+        }).join('')}
+      </tr>`;
+    }).join('');
+  }
+  function updateP(k,sz,i,v){ const p=getPricing(); p[k][sz][i]=parseInt(v,10)||0; ls.set('cjr_pricing',p); }
+  function savePricing(){ showToast('Pricing saved'); }
+
+  /* ── SETTINGS ─────────────────────────────────────────── */
+  function renderDays(){
+    const avail=getAvailDays();
+    document.getElementById('dayToggles').innerHTML=DN.map((name,i)=>`
+      <label style="display:flex;align-items:center;gap:0.7rem;cursor:pointer;padding:0.45rem 0.7rem;border-radius:6px;transition:background 0.12s;" onmouseover="this.style.background='var(--snow)'" onmouseout="this.style.background=''">
+        <input type="checkbox" id="day${i}" ${avail.includes(i)?'checked':''} style="width:15px;height:15px;accent-color:var(--sage);cursor:pointer;">
+        <span style="font-size:0.88rem;">${name}</span>
+        ${i===0?'<span style="margin-left:auto;font-size:0.72rem;color:var(--stone);">Closed by default</span>':''}
+      </label>
+    `).join('');
+  }
+  function saveDays(){
+    const days=DN.map((_,i)=>document.getElementById('day'+i).checked?i:-1).filter(i=>i>=0);
+    ls.set('cjr_available_days',days);
+    renderCal(); showToast('Availability saved');
+  }
+  function changePw(){
+    const n=document.getElementById('pwNew').value;
+    const c=document.getElementById('pwConfirm').value;
+    const msg=document.getElementById('pwMsg');
+    if(!n){msg.textContent='Enter a new password.';msg.style.color='var(--red)';msg.style.display='block';return;}
+    if(n!==c){msg.textContent='Passwords do not match.';msg.style.color='var(--red)';msg.style.display='block';return;}
+    ls.set('cjr_pw',n);
+    document.getElementById('pwNew').value='';
+    document.getElementById('pwConfirm').value='';
+    msg.textContent='✓ Password updated.'; msg.style.color='var(--sage)'; msg.style.display='block';
+    showToast('Password updated');
+  }
+
+  /* ── TOAST ────────────────────────────────────────────── */
+  let tt;
+  function showToast(msg){
+    document.getElementById('toastMsg').textContent=msg;
+    document.getElementById('toast').classList.add('show');
+    clearTimeout(tt); tt=setTimeout(()=>document.getElementById('toast').classList.remove('show'),2500);
+  }
+</script>
+</body>
+</html>
